@@ -1,2 +1,2 @@
-# resourceidea
+# ResourceIdea
 Resource planning service
