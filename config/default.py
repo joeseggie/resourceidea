@@ -8,5 +8,5 @@ class Config:
     """
     APP_NAME = 'resourceidea'
     DEBUG = False
-    MYSQL_DB = os.environ.get('MYSQL_DB')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SECRET_KEY = os.environ.get('SECRET_KEY')
