@@ -26,7 +26,6 @@ class UserAccount(db.Model):
     )
     employee = db.relationship(
         'Employee',
-        uselist=False,
         backref=db.backref(
             'user_account',
             uselist=False
