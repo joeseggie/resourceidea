@@ -20,5 +20,18 @@ class UserAccount(db.Model):
     phone_number = db.Column(db.String(24))
     phone_number_confirmed = db.Column(db.Boolean)
 
+    employee_id = db.Column(
+        db.Integer,
+        db.ForeignKey('employee.id')
+    )
+    employee = db.relationship(
+        'Employee',
+        uselist=False,
+        backref=db.backref(
+            'user_account',
+            uselist=False
+        )
+    )
+
     def __repr__(self):
         return '<User %r>' % self.normalized_email
