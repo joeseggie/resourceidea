@@ -21,3 +21,11 @@ class Receipt(db.Model):
         'receipts',
         lazy=True
     ))
+
+    payment_method_id = db.Column(
+        db.Integer, db.ForeignKey('payment_method.id')
+    )
+    payment_method = db.relationship('PaymentMethod', backref=db.backref(
+        'receipts',
+        lazy=True
+    ))
