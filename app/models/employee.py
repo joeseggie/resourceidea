@@ -18,3 +18,15 @@ class Employee(db.Model):
     last_name = db.Column(db.String(64))
     join_date = db.Column(db.DateTime)
     termination_date = db.Column(db.DateTime)
+
+    resource_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
+    resource = db.relationship(
+        'Resource',
+        backref=db.backref(
+            'employee',
+            uselist=False
+        )
+    )
+
+    def __repr__(self):
+        return '<Employee %r %r>' % (self.first_name, self.last_name)
