@@ -1,41 +1,34 @@
-"""Application initializer.
-"""
-import os
-
-from flask import Flask
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
-
-CONFIG_ENV = {
-    'default': 'config.default.Config',
-    'development': 'config.development.DevelopmentConfig',
-    'production': 'config.production.ProductionConfig',
-    'testing': 'config.testing.TestingConfig',
-}
-
-
-def setup_app(app: Flask):
-    """Setup the application.
-
-    Parameters
-    ----------
-    app {Flask}
-        Flask application to be setup.
-    """
-    config_name = os.getenv('FLASK_ENV', 'default')
-    app.config.from_object(CONFIG_ENV[config_name])
-
-
-app = Flask('resourceidea')
-setup_app(app)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-
+from app.resourceidea import app, db
+from app.models import (
+    assignment_status,
+    assignment,
+    client_industry,
+    client,
+    company,
+    currency,
+    department,
+    employee,
+    invoice,
+    job_comment,
+    job_position,
+    job_status,
+    job_task,
+    job,
+    line_of_service,
+    payment_method,
+    receipt,
+    resource,
+    service_plan,
+    subscription,
+    user_account
+)
 from app.routes.api.index import index_blueprint
 from app.routes.api.company import company_blueprint
 
+
+migrate = Migrate(app, db)
 
 app.register_blueprint(
     index_blueprint,

@@ -18,7 +18,7 @@ class Currency(db.Model):
 
     company_id = db.Column(
         db.Integer,
-        db.ForeignKye('company.id')
+        db.ForeignKey('company.id')
     )
     company = db.relationship(
         'Company',
