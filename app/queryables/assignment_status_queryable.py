@@ -3,7 +3,7 @@
 from app.models.assignment_status import AssignmentStatus
 
 
-class AssistantStatusQuerayble:
+class AssistantStatusQueryable:
     """Query assignment statuses.
     """
 
