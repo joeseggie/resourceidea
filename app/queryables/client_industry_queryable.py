@@ -1,7 +1,5 @@
 """Client industry queryable.
 """
-from sqlalchemy.orm.query import Query
-
 from app.models.client_industry import ClientIndustry
 
 
@@ -25,7 +23,7 @@ class ClientIndustryQueryable:
         } for result in query_result]
         return client_industries_list
 
-    def where_company_is(self, company_id: int) -> Query:
+    def where_company_is(self, company_id: int):
         """Filter client industries by company.
 
         Parameters
@@ -36,7 +34,8 @@ class ClientIndustryQueryable:
         -------
         Query -- sqlalchemy.orm.query.Query object.
         """
-        self.client_industry_queryable = self.client_industry_queryable.filter_by(
-            company_id=company_id
-        )
+        self.client_industry_queryable = self.client_industry_queryable.\
+            filter_by(
+                company_id=company_id
+            )
         return self

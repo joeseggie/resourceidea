@@ -22,10 +22,7 @@ class Employee(db.Model):
     resource_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
     resource = db.relationship(
         'Resource',
-        backref=db.backref(
-            'employee',
-            uselist=False
-        )
+        backref='employee'
     )
 
     def __repr__(self):

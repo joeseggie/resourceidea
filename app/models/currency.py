@@ -22,8 +22,5 @@ class Currency(db.Model):
     )
     company = db.relationship(
         'Company',
-        backref=db.backref(
-            'currencies',
-            lazy=True
-        )
+        backref='currencies'
     )

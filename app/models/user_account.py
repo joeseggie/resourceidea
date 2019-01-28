@@ -26,11 +26,7 @@ class UserAccount(db.Model):
     )
     employee = db.relationship(
         'Employee',
-        backref=db.backref(
-            'user_account',
-            uselist=False
-        )
-    )
+        backref='user_account')
 
     def __repr__(self):
         return '<User %r>' % self.normalized_email

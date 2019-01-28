@@ -16,10 +16,7 @@ class LineOfService(db.Model):
     name = db.Column(db.String(128))
 
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
-    company = db.relationship('Company', backref=db.backref(
-        'lines_of_service',
-        lazy=True
-    ))
+    company = db.relationship('Company', backref='lines_of_service')
 
     def __repr__(self):
         return '<Line of service %r>' % self.name

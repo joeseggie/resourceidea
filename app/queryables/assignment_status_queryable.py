@@ -17,7 +17,7 @@ class AssistantStatusQueryable:
         """
         query_result = self.assignment_status_queryable.all()
         assignment_statuses_list = [{
-            'Id': query_result.id,
-            'Description': query_result.description
-        }]
+            'Id': result.id,
+            'Description': result.description
+        } for result in query_result]
         return assignment_statuses_list

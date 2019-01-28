@@ -23,8 +23,5 @@ class Client(db.Model):
     )
     company = db.relationship(
         'Company',
-        backref=db.backref(
-            'clients',
-            lazy=True
-        )
+        backref='clients'
     )

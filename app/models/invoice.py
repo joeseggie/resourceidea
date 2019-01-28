@@ -24,8 +24,5 @@ class Invoice(db.Model):
     )
     subscription = db.relationship(
         'Subscription',
-        backref=db.backref(
-            'invoices',
-            lazy=True
-        )
+        backref='invoices'
     )

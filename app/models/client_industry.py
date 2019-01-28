@@ -21,8 +21,5 @@ class ClientIndustry(db.Model):
     )
     company = db.relationship(
         'Company',
-        backref=db.backref(
-            'client_industries',
-            lazy=True
-        )
+        backref='client_industries'
     )

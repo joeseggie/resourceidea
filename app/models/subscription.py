@@ -22,8 +22,4 @@ class Subscription(db.Model):
     )
     company = db.relationship(
         'Company',
-        backref=db.backref(
-            'subscriptions',
-            lazy=True
-        )
-    )
+        backref='subscriptions')

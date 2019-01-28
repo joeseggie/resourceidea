@@ -21,8 +21,5 @@ class Department(db.Model):
     )
     company = db.relationship(
         'Company',
-        backref=db.backref(
-            'departments',
-            lazy=True
-        )
+        backref='departments'
     )

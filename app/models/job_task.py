@@ -16,4 +16,4 @@ class JobTask(db.Model):
     description = db.Column(db.String(256))
 
     job_id = db.Column(db.Integer, db.ForeignKey('job.id'))
-    job = db.relationship('Job', backref=db.backref('job_tasks', lazy=True))
+    job = db.relationship('Job', backref='job_tasks')

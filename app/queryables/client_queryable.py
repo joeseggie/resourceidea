@@ -12,7 +12,7 @@ class ClientQueryable:
         """
         self.client_queryable = Client.query
 
-    def to_list(self):
+    def to_list(self) -> list:
         """Get list of clients.
         """
         query_result = self.client_queryable.all()
@@ -24,3 +24,19 @@ class ClientQueryable:
             'CompanyId': result.company_id
         } for result in query_result]
         return clients_list
+
+    def where_company_is(self, company_id: int):
+        """Filter the clients by company.
+
+        Parameters
+        ----------
+        company_id {int} -- Company Id.
+
+        Returns
+        -------
+        ClientQueryable -- Client queryable.
+        """
+        self.client_queryable = self.client_queryable.filter_by(
+            company_id=company_id
+        )
+        return self

@@ -22,8 +22,4 @@ class JobPosition(db.Model):
     )
     department = db.relationship(
         'Department',
-        backref=db.backref(
-            'job_positions',
-            lazy=True
-        )
-    )
+        backref='job_positions')

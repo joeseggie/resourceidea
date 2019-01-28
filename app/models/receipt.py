@@ -17,15 +17,9 @@ class Receipt(db.Model):
     payment_date = db.Column(db.DateTime)
 
     invoice_id = db.Column(db.Integer, db.ForeignKey('invoice.id'))
-    invoice = db.relationship('Invoice', backref=db.backref(
-        'receipts',
-        lazy=True
-    ))
+    invoice = db.relationship('Invoice', backref='receipts')
 
     payment_method_id = db.Column(
         db.Integer, db.ForeignKey('payment_method.id')
     )
-    payment_method = db.relationship('PaymentMethod', backref=db.backref(
-        'receipts',
-        lazy=True
-    ))
+    payment_method = db.relationship('PaymentMethod', backref='receipts')

@@ -23,7 +23,4 @@ class JobComment(db.Model):
     ))
 
     resource_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
-    resource = db.relationship('Resource', backref=db.backref(
-        'job_comments',
-        lazy=True
-    ))
+    resource = db.relationship('Resource', backref='job_comments')

@@ -17,35 +17,16 @@ class Job(db.Model):
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     color = db.Column(db.String(7))
+    manager_id = db.Column(db.Integer)
+    partner_id = db.Column(db.Integer)
 
     job_status_id = db.Column(db.Integer, db.ForeignKey('job_status.id'))
-    job_status = db.relationship('JobStatus', backref=db.backref(
-        'jobs',
-        lazy=True
-    ))
+    job_status = db.relationship('JobStatus', backref='jobs')
 
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
-    client = db.relationship('Client', backref=db.backref(
-        'jobs',
-        lazy=True
-    ))
+    client = db.relationship('Client', backref='jobs')
 
     line_of_service_id = db.Column(db.Integer, db.ForeignKey(
         'line_of_service.id'
     ))
-    line_of_service = db.relationship('LineOfService', backref=db.backref(
-        'jobs',
-        lazy=True
-    ))
-
-    manager_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
-    manager = db.relationship('Resource', backref=db.backref(
-        'jobs_managed',
-        lazy=True
-    ))
-
-    partner_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
-    partner = db.relationship('Resource', backref=db.backref(
-        'jobs_as_partner',
-        lazy=True
-    ))
+    line_of_service = db.relationship('LineOfService', backref='jobs')

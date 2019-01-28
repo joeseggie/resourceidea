@@ -3,8 +3,6 @@
 import unittest
 from unittest.mock import Mock
 
-from sqlalchemy.orm.query import Query
-
 from app.queryables.client_queryable import ClientQueryable
 
 
@@ -20,9 +18,9 @@ class TestClientQueryable(unittest.TestCase):
         """Test where_company_is returns Query object.
         """
         queryable = ClientQueryable()
-        comapny_id = Mock()
-        result = queryable.where_company_is(comapny_id)
-        self.assertIsInstance(result, Query)
+        company_id = Mock()
+        result = queryable.where_company_is(company_id)
+        self.assertIsInstance(result, ClientQueryable)
 
 
 if __name__ == '__main__':
