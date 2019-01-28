@@ -116,3 +116,19 @@ class AssignmentQueryable:
             assignment_status_id=assignment_status_id
         )
         return self
+
+    def where_job_task_is(self, job_task_id: int) -> Query:
+        """Get assignments that belong to a job task.
+
+        Parameters
+        ----------
+        job_task_id {int} -- Job task Id.
+
+        Returns
+        -------
+        Query -- sqlalchemy.orm.query.Query object.
+        """
+        self.assignment_queryable = self.assignment_queryable.filter_by(
+            job_task_id=job_task_id
+        )
+        return self

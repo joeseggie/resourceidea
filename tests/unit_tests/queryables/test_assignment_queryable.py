@@ -52,3 +52,10 @@ def test_where_assignment_status_is_returns_Query():
     assignment_status_id = Mock()
     result = queryable.where_assignment_status_is(assignment_status_id)
     assert isinstance(result, Query)
+
+
+def test_where_job_task_is_returns_Query():
+    queryable = AssignmentQueryable()
+    job_task_id = Mock()
+    result = queryable.where_job_task_is(job_task_id)
+    assert isinstance(result, Query)
