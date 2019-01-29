@@ -17,8 +17,16 @@ class Job(db.Model):
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     color = db.Column(db.String(7))
-    manager_id = db.Column(db.Integer)
-    partner_id = db.Column(db.Integer)
+    manager_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
+    manager = db.relationship(
+        'Resource',
+        backref='jobs_managed'
+    )
+    partner_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
+    partner = db.relationship(
+        'Resource',
+        backref='jobs_as_partner'
+    )
 
     job_status_id = db.Column(db.Integer, db.ForeignKey('job_status.id'))
     job_status = db.relationship('JobStatus', backref='jobs')
