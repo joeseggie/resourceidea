@@ -19,9 +19,9 @@ class Employee(db.Model):
     join_date = db.Column(db.DateTime)
     termination_date = db.Column(db.DateTime)
 
-    resource_id = db.Column(db.Integer, db.ForeignKey('resource.id'))
     resource = db.relationship(
         'Resource',
+        uselist=False,
         backref='employee'
     )
     user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'))
