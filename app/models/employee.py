@@ -24,6 +24,7 @@ class Employee(db.Model):
         'Resource',
         backref='employee'
     )
+    user_account_id = db.Column(db.Integer, db.ForeignKey('user_account.id'))
 
     def __repr__(self):
         return '<Employee %r %r>' % (self.first_name, self.last_name)

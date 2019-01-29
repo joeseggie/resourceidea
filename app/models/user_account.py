@@ -26,7 +26,13 @@ class UserAccount(db.Model):
     )
     employee = db.relationship(
         'Employee',
+        uselist=False,
         backref='user_account')
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    company = db.relationship(
+        'Company',
+        backref='user_accounts'
+    )
 
     def __repr__(self):
         return '<User %r>' % self.normalized_email
