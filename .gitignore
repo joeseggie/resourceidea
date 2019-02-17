@@ -109,3 +109,5 @@ venv.bak/
 
 # Development configurations
 config/development.py
+
+migrations/
