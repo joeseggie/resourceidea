@@ -29,5 +29,5 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            flake8 --exclude=env*,migrations* --statistics
+            flake8 --exclude=venv*,migrations* --statistics
             pytest -p no:warnings --cov=app
