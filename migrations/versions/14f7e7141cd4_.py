@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 08f17019b5a2
+Revision ID: 14f7e7141cd4
 Revises: 
-Create Date: 2019-01-28 15:30:43.283765
+Create Date: 2019-02-17 12:51:11.328847
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '08f17019b5a2'
+revision = '14f7e7141cd4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,13 +38,6 @@ def upgrade():
     op.create_table('payment_method',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=64), nullable=True),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('resource',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('charge_rate', sa.Float(), nullable=True),
-    sa.Column('color', sa.String(length=7), nullable=True),
-    sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('service_plan',
@@ -84,17 +77,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['company_id'], ['company.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('employee',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('file_number', sa.String(length=16), nullable=True),
-    sa.Column('first_name', sa.String(length=64), nullable=True),
-    sa.Column('last_name', sa.String(length=64), nullable=True),
-    sa.Column('join_date', sa.DateTime(), nullable=True),
-    sa.Column('termination_date', sa.DateTime(), nullable=True),
-    sa.Column('resource_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['resource_id'], ['resource.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('line_of_service',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=128), nullable=True),
@@ -108,6 +90,29 @@ def upgrade():
     sa.Column('ended', sa.DateTime(), nullable=True),
     sa.Column('company_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['company_id'], ['company.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('user_account',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('username', sa.String(length=128), nullable=True),
+    sa.Column('email', sa.String(length=128), nullable=True),
+    sa.Column('email_confirmed', sa.Boolean(), nullable=True),
+    sa.Column('normalized_email', sa.String(length=128), nullable=True),
+    sa.Column('phone_number', sa.String(length=24), nullable=True),
+    sa.Column('phone_number_confirmed', sa.Boolean(), nullable=True),
+    sa.Column('company_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['company_id'], ['company.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('employee',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('file_number', sa.String(length=16), nullable=True),
+    sa.Column('first_name', sa.String(length=64), nullable=True),
+    sa.Column('last_name', sa.String(length=64), nullable=True),
+    sa.Column('join_date', sa.DateTime(), nullable=True),
+    sa.Column('termination_date', sa.DateTime(), nullable=True),
+    sa.Column('user_account_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['user_account_id'], ['user_account.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('invoice',
@@ -126,16 +131,14 @@ def upgrade():
     sa.Column('start_date', sa.DateTime(), nullable=True),
     sa.Column('end_date', sa.DateTime(), nullable=True),
     sa.Column('color', sa.String(length=7), nullable=True),
+    sa.Column('manager_id', sa.Integer(), nullable=True),
+    sa.Column('partner_id', sa.Integer(), nullable=True),
     sa.Column('job_status_id', sa.Integer(), nullable=True),
     sa.Column('client_id', sa.Integer(), nullable=True),
     sa.Column('line_of_service_id', sa.Integer(), nullable=True),
-    sa.Column('manager_id', sa.Integer(), nullable=True),
-    sa.Column('partner_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['client_id'], ['client.id'], ),
     sa.ForeignKeyConstraint(['job_status_id'], ['job_status.id'], ),
     sa.ForeignKeyConstraint(['line_of_service_id'], ['line_of_service.id'], ),
-    sa.ForeignKeyConstraint(['manager_id'], ['resource.id'], ),
-    sa.ForeignKeyConstraint(['partner_id'], ['resource.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('job_position',
@@ -144,28 +147,6 @@ def upgrade():
     sa.Column('level', sa.Integer(), nullable=True),
     sa.Column('department_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['department_id'], ['department.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('user_account',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(length=128), nullable=True),
-    sa.Column('email', sa.String(length=128), nullable=True),
-    sa.Column('email_confirmed', sa.Boolean(), nullable=True),
-    sa.Column('normalized_email', sa.String(length=128), nullable=True),
-    sa.Column('phone_number', sa.String(length=24), nullable=True),
-    sa.Column('phone_number_confirmed', sa.Boolean(), nullable=True),
-    sa.Column('employee_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['employee_id'], ['employee.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('job_comment',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('details', sa.String(length=256), nullable=True),
-    sa.Column('made', sa.DateTime(), nullable=True),
-    sa.Column('job_id', sa.Integer(), nullable=True),
-    sa.Column('resource_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['job_id'], ['job.id'], ),
-    sa.ForeignKeyConstraint(['resource_id'], ['resource.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('job_task',
@@ -185,6 +166,15 @@ def upgrade():
     sa.ForeignKeyConstraint(['payment_method_id'], ['payment_method.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('resource',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('charge_rate', sa.Float(), nullable=True),
+    sa.Column('color', sa.String(length=7), nullable=True),
+    sa.Column('is_active', sa.Boolean(), nullable=True),
+    sa.Column('employee_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['employee_id'], ['employee.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('assignment',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('starts', sa.DateTime(), nullable=True),
@@ -197,28 +187,38 @@ def upgrade():
     sa.ForeignKeyConstraint(['resource_id'], ['resource.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('job_comment',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('details', sa.String(length=256), nullable=True),
+    sa.Column('made', sa.DateTime(), nullable=True),
+    sa.Column('job_id', sa.Integer(), nullable=True),
+    sa.Column('resource_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['job_id'], ['job.id'], ),
+    sa.ForeignKeyConstraint(['resource_id'], ['resource.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     # ### end Alembic commands ###
 
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
+    op.drop_table('job_comment')
     op.drop_table('assignment')
+    op.drop_table('resource')
     op.drop_table('receipt')
     op.drop_table('job_task')
-    op.drop_table('job_comment')
-    op.drop_table('user_account')
     op.drop_table('job_position')
     op.drop_table('job')
     op.drop_table('invoice')
+    op.drop_table('employee')
+    op.drop_table('user_account')
     op.drop_table('subscription')
     op.drop_table('line_of_service')
-    op.drop_table('employee')
     op.drop_table('department')
     op.drop_table('currency')
     op.drop_table('client_industry')
     op.drop_table('client')
     op.drop_table('service_plan')
-    op.drop_table('resource')
     op.drop_table('payment_method')
     op.drop_table('job_status')
     op.drop_table('company')
