@@ -1,12 +1,11 @@
 '''Department queryable unit tests.
 '''
-import unittest
 from unittest.mock import Mock
 
 from app.queryables.department_queryable import DepartmentQueryable
 
 
-class TestDepartmentQueryable(unittest.TestCase):
+class TestDepartmentQueryable:
     '''Test DepartmentQueryable.
     '''
     def test_to_list_returns_list(self):
@@ -14,7 +13,7 @@ class TestDepartmentQueryable(unittest.TestCase):
         '''
         queryable = DepartmentQueryable()
         result = queryable.to_list()
-        self.assertIsInstance(result, list)
+        assert isinstance(result, list)
 
     def test_where_company_is_returns_DepartmentQueryable(self):
         '''Test where_company_is method returns DepartmentQueryable object.
@@ -22,4 +21,4 @@ class TestDepartmentQueryable(unittest.TestCase):
         queryable = DepartmentQueryable()
         mock_company_id = Mock()
         result = queryable.where_company_is(mock_company_id)
-        self.assertIsInstance(result, DepartmentQueryable)
+        assert isinstance(result, DepartmentQueryable)
