@@ -1,12 +1,11 @@
 '''Subscription queryable unit tests.
 '''
-import unittest
 from unittest.mock import Mock
 
 from app.queryables.subscription_queryable import SubscriptionQueryable
 
 
-class TestSubscriptionQueryable(unittest.TestCase):
+class TestSubscriptionQueryable:
     '''Test subscription queryable.
     '''
     def test_to_list_returns_list(self):
@@ -14,7 +13,7 @@ class TestSubscriptionQueryable(unittest.TestCase):
         '''
         queryable = SubscriptionQueryable()
         result = queryable.to_list()
-        self.assertIsInstance(result, list)
+        assert isinstance(result, list)
 
     def test_where_company_is_returns_SubscriptionQueryable(self):
         '''Test where_company_is method returns SubscriptionQueryable.
@@ -22,4 +21,4 @@ class TestSubscriptionQueryable(unittest.TestCase):
         queryable = SubscriptionQueryable()
         company_id = Mock()
         result = queryable.where_company_is(company_id)
-        self.assertIsInstance(result, SubscriptionQueryable)
+        assert isinstance(result, SubscriptionQueryable)
