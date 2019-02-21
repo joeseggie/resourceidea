@@ -1,6 +1,6 @@
 """Job comment model.
 """
-from app import db
+from database import db
 
 
 class JobComment(db.Model):
