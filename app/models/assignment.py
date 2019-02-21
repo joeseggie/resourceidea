@@ -1,6 +1,6 @@
 """Assignment model.
 """
-from app import db
+from database import db
 
 
 class Assignment(db.Model):

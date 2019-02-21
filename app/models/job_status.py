@@ -1,6 +1,6 @@
 """Job status model.
 """
-from app import db
+from database import db
 
 
 class JobStatus(db.Model):

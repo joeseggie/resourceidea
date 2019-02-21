@@ -1,6 +1,6 @@
 """Job position model.
 """
-from app import db
+from database import db
 
 
 class JobPosition(db.Model):
