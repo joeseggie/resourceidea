@@ -1,6 +1,6 @@
 '''Department queryable.
 '''
-from app.models.department import Department
+from ..models.department import Department
 
 
 class DepartmentQueryable:

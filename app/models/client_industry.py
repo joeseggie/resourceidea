@@ -1,6 +1,6 @@
 """Client industry model.
 """
-from app import db
+from database import db
 
 
 class ClientIndustry(db.Model):

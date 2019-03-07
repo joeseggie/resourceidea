@@ -1,6 +1,6 @@
 """Job task model.
 """
-from app import db
+from database import db
 
 
 class JobTask(db.Model):
