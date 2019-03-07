@@ -1,6 +1,6 @@
 """Payment method model.
 """
-from app import db
+from database import db
 
 
 class PaymentMethod(db.Model):

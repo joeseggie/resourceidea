@@ -1,6 +1,6 @@
 """Invoice model.
 """
-from app import db
+from database import db
 
 
 class Invoice(db.Model):

@@ -1,6 +1,6 @@
 '''Subscription queryable.
 '''
-from app.models.subscription import Subscription
+from ..models.subscription import Subscription
 
 
 class SubscriptionQueryable:

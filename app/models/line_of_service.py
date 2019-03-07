@@ -1,6 +1,6 @@
 """Line of service model.
 """
-from app import db
+from database import db
 
 
 class LineOfService(db.Model):

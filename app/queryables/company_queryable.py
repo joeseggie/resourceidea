@@ -1,6 +1,6 @@
 """Companies queryable.
 """
-from app.models.company import Company
+from ..models.company import Company
 
 
 class CompanyQueryable:
