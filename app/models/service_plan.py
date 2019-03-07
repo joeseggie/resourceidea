@@ -17,4 +17,4 @@ class ServicePlan(db.Model):
     price = db.Column(db.Float)
 
     def __repr__(self):
-        return '<Service plan %s(%f)' % self.name, self.price
+        return '<Service plan %s(%f)>' % (self.name, self.price)

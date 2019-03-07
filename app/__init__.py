@@ -3,12 +3,14 @@ Application initialization.
 '''
 import os
 
-from flask import Flask
 from database import db
+from flask import Flask
 from flask_migrate import Migrate
+from flask_restful import Api
 
-from . import models
-from .views.index import home_bp
+from .views.index import Index
+from .views.assignment import AssignmentResource
+from .views.service_plan import ServicePlanResource
 
 
 CONFIG_ENV = {
@@ -28,8 +30,11 @@ def create_app():
     app.config.from_object(CONFIG_ENV[config_name])
     db.init_app(app)
     migrate.init_app(app, db)
+    api = Api(app)
 
-    app.register_blueprint(home_bp)
+    api.add_resource(Index, '/api/v1')
+    api.add_resource(AssignmentResource, '/api/v1/assignments')
+    api.add_resource(ServicePlanResource, '/api/v1/serviceplans')
 
     return app
 

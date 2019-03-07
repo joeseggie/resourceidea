@@ -1,9 +1,9 @@
-from flask import Blueprint
+from flask_restful import Resource
 
 
-home_bp = Blueprint('home', __name__, url_prefix='/')
-
-
-@home_bp.route('/')
-def index():
-    return '<h1>Hello, World!</h1>'
+class Index(Resource):
+    '''
+    Index API resource
+    '''
+    def get(self):
+        return {'message': 'Welcome to the ResourceIdea API'}
