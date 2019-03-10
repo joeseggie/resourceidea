@@ -15,11 +15,11 @@ def client():
         print(app.config)
         db.create_all()
 
-    yield client
+        yield client
 
-    db.session.remove()
-    db.drop_all()
-    app_context.pop()
+        db.session.remove()
+        db.drop_all()
+        app_context.pop()
 
 
 class TestServicePlanRoutes:
