@@ -1,7 +1,6 @@
 '''
 Application initialization.
 '''
-import os
 
 from database import db
 from flask import Flask
@@ -10,7 +9,7 @@ from flask_restful import Api
 
 from .views.index import Index
 from .views.assignment import AssignmentResource
-from .views.service_plan import ServicePlanResource
+from .views.service_plan import ServicePlanListResource, ServicePlanResource
 
 
 CONFIG_ENV = {
@@ -24,9 +23,8 @@ CONFIG_ENV = {
 migrate = Migrate()
 
 
-def create_app():
+def create_app(config_name='default'):
     app = Flask('resourceidea')
-    config_name = os.getenv('FLASK_ENV', 'default')
     app.config.from_object(CONFIG_ENV[config_name])
     db.init_app(app)
     migrate.init_app(app, db)
@@ -34,9 +32,7 @@ def create_app():
 
     api.add_resource(Index, '/api/v1')
     api.add_resource(AssignmentResource, '/api/v1/assignments')
-    api.add_resource(ServicePlanResource, '/api/v1/serviceplans')
+    api.add_resource(ServicePlanListResource, '/api/v1/serviceplans')
+    api.add_resource(ServicePlanResource, '/api/v1/serviceplans/<int:id>')
 
     return app
-
-
-app = create_app()
