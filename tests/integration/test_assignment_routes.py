@@ -165,3 +165,30 @@ class TestAssignmentRoutes:
         assert response_data['data']['id'] == 1
         assert response_data['data']['starts'] == '2019-01-10 08:00:00'
         assert response_data['data']['ends'] == '2019-09-18 17:00:00'
+
+    def test_response_code_when_assignment_not_found(self, client):
+        # Act
+        response = client.get('/api/v1/assignments/99999')
+        response_data = json.loads(response.get_data(as_text=True))
+
+        # Assert
+        assert response.status_code == 404
+        assert response_data['code'] == 404
+
+    def test_response_code_when_assignment_update_not_found(self, client):
+        # Act
+        response = client.put('/api/v1/assignments/99999')
+        response_data = json.loads(response.get_data(as_text=True))
+
+        # Assert
+        assert response.status_code == 404
+        assert response_data['code'] == 404
+
+    def test_assignment_patch_response_code_when_not_found(self, client):
+        # Act
+        response = client.patch('/api/v1/assignments/99999')
+        response_data = json.loads(response.get_data(as_text=True))
+
+        # Assert
+        assert response.status_code == 404
+        assert response_data['code'] == 404
