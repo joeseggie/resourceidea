@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from .views.index import Index
-from .views.assignment import AssignmentResource
+from .views.assignment import AssignmentListResource
 from .views.service_plan import ServicePlanListResource, ServicePlanResource
 
 
@@ -31,7 +31,7 @@ def create_app(config_name='default'):
     api = Api(app)
 
     api.add_resource(Index, '/api/v1')
-    api.add_resource(AssignmentResource, '/api/v1/assignments')
+    api.add_resource(AssignmentListResource, '/api/v1/assignments')
     api.add_resource(ServicePlanListResource, '/api/v1/serviceplans')
     api.add_resource(ServicePlanResource, '/api/v1/serviceplans/<int:id>')
 
