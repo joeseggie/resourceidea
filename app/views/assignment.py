@@ -5,21 +5,22 @@ from database import db
 from ..models.assignment import Assignment
 
 
-data_fields = {}
-data_fields['id'] = fields.Integer(attribute='id')
-data_fields['starts'] = fields.String(attribute='starts')
-data_fields['ends'] = fields.String(attribute='ends')
-
 assignment_fields = {
     'status': fields.String,
     'code': fields.Integer,
 }
-assignment_fields['data'] = fields.Nested(data_fields)
 
 
 class AssignmentListResource(Resource):
     def get(self):
         assignments = Assignment.query.all()
+
+        data_fields = {}
+        data_fields['id'] = fields.Integer(attribute='id')
+        data_fields['starts'] = fields.String(attribute='starts')
+        data_fields['ends'] = fields.String(attribute='ends')
+        assignment_fields['data'] = fields.Nested(data_fields)
+
         response = {
             'status': 'OK',
             'code': 200,
@@ -46,6 +47,12 @@ class AssignmentListResource(Resource):
         db.session.add(assignment)
         db.session.commit()
 
+        data_fields = {}
+        data_fields['id'] = fields.Integer(attribute='id')
+        data_fields['starts'] = fields.String(attribute='starts')
+        data_fields['ends'] = fields.String(attribute='ends')
+        assignment_fields['data'] = fields.Nested(data_fields)
+
         response = {
             'status': 'OK',
             'code': 201,
@@ -63,6 +70,13 @@ class AssignmentResource(Resource):
         assignment = Assignment.query.get(id)
         status_code = 200
         if assignment:
+
+            data_fields = {}
+            data_fields['id'] = fields.Integer(attribute='id')
+            data_fields['starts'] = fields.String(attribute='starts')
+            data_fields['ends'] = fields.String(attribute='ends')
+            assignment_fields['data'] = fields.Nested(data_fields)
+
             response = {
                 'status': 'OK',
                 'code': status_code,
@@ -76,13 +90,16 @@ class AssignmentResource(Resource):
 
             assignment_fields['error'] = fields.Nested(error_fields)
 
-            response = {
-                'status': 'ERROR',
-                'code': status_code,
-                'data': None,
+            error = {
                 'error_message': 'Resource Not Found',
                 'detailed_error': 'Assignment with the Id supplied does not '
                                   'exist or is invalid.'
+            }
+
+            response = {
+                'status': 'ERROR',
+                'code': status_code,
+                'error': error
             }
         return marshal(response, assignment_fields), status_code
 
@@ -108,6 +125,12 @@ class AssignmentResource(Resource):
             assignment.ends = args.ends
             db.session.commit()
 
+            data_fields = {}
+            data_fields['id'] = fields.Integer(attribute='id')
+            data_fields['starts'] = fields.String(attribute='starts')
+            data_fields['ends'] = fields.String(attribute='ends')
+            assignment_fields['data'] = fields.Nested(data_fields)
+
             response = {
                 'status': 'OK',
                 'code': status_code,
@@ -121,13 +144,16 @@ class AssignmentResource(Resource):
 
             assignment_fields['error'] = fields.Nested(error_fields)
 
-            response = {
-                'status': 'ERROR',
-                'code': status_code,
-                'data': None,
+            error = {
                 'error_message': 'Resource Not Found',
                 'detailed_error': 'Assignment with the Id supplied does not '
                                   'exist or is invalid.'
+            }
+
+            response = {
+                'status': 'ERROR',
+                'code': status_code,
+                'error': error
             }
 
         return marshal(response, assignment_fields), status_code
@@ -154,6 +180,12 @@ class AssignmentResource(Resource):
                 assignment.ends = args.ends
             db.session.commit()
 
+            data_fields = {}
+            data_fields['id'] = fields.Integer(attribute='id')
+            data_fields['starts'] = fields.String(attribute='starts')
+            data_fields['ends'] = fields.String(attribute='ends')
+            assignment_fields['data'] = fields.Nested(data_fields)
+
             response = {
                 'status': 'OK',
                 'code': status_code,
@@ -167,13 +199,16 @@ class AssignmentResource(Resource):
 
             assignment_fields['error'] = fields.Nested(error_fields)
 
-            response = {
-                'status': 'ERROR',
-                'code': status_code,
-                'data': None,
+            error = {
                 'error_message': 'Resource Not Found',
                 'detailed_error': 'Assignment with the Id supplied does not '
                                   'exist or is invalid.'
+            }
+
+            response = {
+                'status': 'ERROR',
+                'code': status_code,
+                'error': error
             }
 
         return marshal(response, assignment_fields), status_code
