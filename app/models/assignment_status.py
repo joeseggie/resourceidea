@@ -20,9 +20,6 @@ class AssignmentStatus(db.Model):
         lazy='dynamic'
     )
 
-    def __repr__(self):
-        return '<Assignment status %s>' % self.description
-
     def save(self):
         '''
         Add new assignment status.
