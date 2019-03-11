@@ -1,6 +1,6 @@
 """Company model
 """
-from app import db
+from database import db
 
 
 class Company(db.Model):

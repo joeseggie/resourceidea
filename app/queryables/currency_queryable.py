@@ -1,6 +1,6 @@
 """Currency queryable.
 """
-from app.models.currency import Currency
+from ..models.currency import Currency
 
 
 class CurrencyQueryable:

@@ -1,6 +1,6 @@
 """Resource model.
 """
-from app import db
+from database import db
 
 
 class Resource(db.Model):

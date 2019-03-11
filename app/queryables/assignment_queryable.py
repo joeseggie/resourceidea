@@ -4,7 +4,7 @@ from datetime import datetime
 
 from sqlalchemy.orm.query import Query
 
-from app.models.assignment import Assignment
+from ..models.assignment import Assignment
 
 
 class AssignmentQueryable:

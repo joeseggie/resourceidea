@@ -1,6 +1,6 @@
 """Assignment model.
 """
-from app import db
+from database import db
 
 
 class Assignment(db.Model):
@@ -25,7 +25,3 @@ class Assignment(db.Model):
     assignment_status_id = db.Column(db.Integer, db.ForeignKey(
         'assignment_status.id'
     ))
-    assignment_status = db.relationship(
-        'AssignmentStatus',
-        backref='assignments'
-    )

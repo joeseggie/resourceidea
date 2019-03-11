@@ -1,6 +1,6 @@
 """Assignment status queryable.
 """
-from app.models.assignment_status import AssignmentStatus
+from ..models.assignment_status import AssignmentStatus
 
 
 class AssistantStatusQueryable:

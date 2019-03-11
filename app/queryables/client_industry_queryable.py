@@ -1,6 +1,6 @@
 """Client industry queryable.
 """
-from app.models.client_industry import ClientIndustry
+from ..models.client_industry import ClientIndustry
 
 
 class ClientIndustryQueryable:
