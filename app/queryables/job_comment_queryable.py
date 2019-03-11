@@ -1,6 +1,6 @@
 '''JobCommentQueryable module.
 '''
-from app.models.job_comment import JobComment
+from ..models.job_comment import JobComment
 
 
 class JobCommentQueryable:

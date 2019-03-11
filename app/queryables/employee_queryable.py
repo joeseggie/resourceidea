@@ -2,7 +2,7 @@
 '''
 from datetime import datetime
 
-from app.models.employee import Employee
+from ..models.employee import Employee
 
 
 class EmployeeQueryable:

@@ -1,6 +1,6 @@
 """Client queryable.
 """
-from app.models.client import Client
+from ..models.client import Client
 
 
 class ClientQueryable:

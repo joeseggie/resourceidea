@@ -1,7 +1,7 @@
 '''InvoiceQueryable module.
 '''
 from datetime import datetime
-from app.models.invoice import Invoice
+from ..models.invoice import Invoice
 
 
 class InvoiceQueryable:
