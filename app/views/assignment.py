@@ -99,6 +99,7 @@ class AssignmentResource(Resource):
             response = {
                 'status': 'ERROR',
                 'code': status_code,
+                'data': None,
                 'error': error
             }
         return marshal(response, assignment_fields), status_code
@@ -153,6 +154,7 @@ class AssignmentResource(Resource):
             response = {
                 'status': 'ERROR',
                 'code': status_code,
+                'data': None,
                 'error': error
             }
 
@@ -208,6 +210,7 @@ class AssignmentResource(Resource):
             response = {
                 'status': 'ERROR',
                 'code': status_code,
+                'data': None,
                 'error': error
             }
 
