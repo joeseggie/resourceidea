@@ -18,6 +18,7 @@ itsdangerous==1.1.0
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.1.0
+marshmallow==2.19.1
 mccabe==0.6.1
 more-itertools==5.0.0
 pluggy==0.8.1
@@ -28,6 +29,7 @@ pycodestyle==2.4.0
 pyflakes==2.0.0
 pytest==4.1.1
 pytest-cov==2.6.1
+pytest-flask==0.14.0
 python-coveralls==2.9.1
 python-dateutil==2.7.5
 python-dotenv==0.10.1
