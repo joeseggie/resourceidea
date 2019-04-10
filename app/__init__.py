@@ -10,8 +10,8 @@ from flask_restful import Api
 from .views.index import Index
 from .views.assignment import AssignmentListResource, AssignmentResource
 from .views.service_plan import ServicePlanListResource, ServicePlanResource
-from .views.assignment_status import AssignmentStatusListResource, \
-    AssignmentStatusResource
+from .assignment_status.endpoints import AssignmentStatusListResource
+from .assignment_status.endpoints import AssignmentStatusResource
 
 
 CONFIG_ENV = {
