@@ -1,4 +1,6 @@
+from flask import Blueprint
 from flask import request
+from flask_restful import Api
 from flask_restful import fields
 from flask_restful import marshal
 from flask_restful import reqparse
@@ -10,6 +12,11 @@ from .repository import AssignmentStatusRepository
 from .schemas import AssignmentStatusListOutputSchema
 from .schemas import NewAssignmentStatusInputSchema
 from .schemas import NewAssignmentStatusOutputSchema
+
+
+assignment_status_bp = Blueprint('assignmentstatus', __name__)
+assignment_status_api = Api(assignment_status_bp)
+ENDPOINT_PREFIX = '/assignmentstatus'
 
 
 data_fields = {}
@@ -65,3 +72,7 @@ class AssignmentStatusResource(Resource):
             'data': assignment_status
         }
         return marshal(response, assignment_status_fields)
+
+
+assignment_status_api.add_resource(AssignmentStatusListResource, f'{ENDPOINT_PREFIX}')
+assignment_status_api.add_resource(AssignmentStatusResource, f'{ENDPOINT_PREFIX}/<int:id>')
