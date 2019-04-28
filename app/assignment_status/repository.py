@@ -29,9 +29,7 @@ class AssignmentStatusRepository():
         '''
         update existing assignment status.
         '''
-        status_exists = AssignmentStatus.query.filter_by(
-            description=self.description
-        ).items
+        status_exists = AssignmentStatus.query.filter_by(description=self.description).items
         if status_exists and status_exists.id == status_update['id']:
             assignment_status = AssignmentStatus.query.get(status_update['id'])
             assignment_status.description = status_update['description']
