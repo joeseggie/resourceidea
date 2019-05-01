@@ -16,4 +16,6 @@ class TestingConfig(Config):
     DEBUG = False
     TESTING = True
     ENV = 'testing'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_SQLALCHEMY_DATABASE_URI')
+    ROOT_DIR = '/Users/jserunjogi/source/repos/eastseat/python/flask/resourceidea'
+    TEST_DB = os.path.join(ROOT_DIR, 'tests', 'test_resourceidea.db')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + TEST_DB

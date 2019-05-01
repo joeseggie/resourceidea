@@ -9,9 +9,7 @@ class AssignmentStatusRepository():
         '''
         Add new assignment status.
         '''
-        print('KWARGS', kwargs)
         description = kwargs.get('description', '')
-        print('DESCRIPTION_FILTER', description)
         status_exists = AssignmentStatus.query.filter(AssignmentStatus.description == description).all()
         if not status_exists:
             new_assignment_status = AssignmentStatus(description=description)
