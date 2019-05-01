@@ -1,12 +1,11 @@
 '''
 Application initialization.
 '''
-
-from database import db
 from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
 
+from database import db
 from .views.index import Index
 from .views.assignment import AssignmentListResource, AssignmentResource
 from .views.service_plan import ServicePlanListResource, ServicePlanResource
