@@ -33,13 +33,13 @@ class BaseRepository(ABC):
         return cls.model_class.query.get(id)
 
     @classmethod
-    def create(cls, model: db.Model) -> db.Model:
+    def create(cls, model: db.Model) -> model_class:
         db.session.add(model)
         db.session.commit()
         return model
 
     @classmethod
-    def delete_by_id(cls, id: UUID):
+    def delete_by_id(cls, id: UUID) -> int:
         rows_deleted = cls._base_query().filter_by(id=id).delete()
         db.session.commit()
         return rows_deleted
