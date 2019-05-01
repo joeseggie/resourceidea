@@ -1,20 +1,20 @@
 from typing import List
 from uuid import UUID
 
+from flask_restful import abort
+
 from app.common.base_repository import BaseRepository
 from app.company.models import Company
-
-from werkzeug.exceptions import NotFound
 
 
 class CompanyRepository(BaseRepository):
     model_class = Company
 
     @classmethod
-    def update(cls, id: UUID, **kwargs):
+    def update(cls, id: UUID, **kwargs) -> model_class:
         company = cls.get_one_by_id(id)
         if not company:
-            raise NotFound('Company does not exist')
+            abort(404, message=f'Company was not found.')
         update_fields = ('name', 'name_stub', 'address')
         return cls.update_by_id(id, update_fields, **kwargs)
 
