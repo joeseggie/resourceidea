@@ -18,19 +18,19 @@ class BaseRepository(ABC):
         return cls.model_class.query
 
     @classmethod
-    def update_by_id(cls, id: UUID, fields_for_update: Union[Tuple, List], **kwargs) -> Query:
+    def update_by_id(cls, model_id: UUID, fields_for_update: Union[Tuple, List], **kwargs) -> Query:
         update_data = {}
         for field in fields_for_update:
             if field in kwargs:
                 update_data[field] = kwargs[field]
 
-        cls._base_query().filter_by(id=id).update(update_data)
+        cls._base_query().filter_by(id=model_id).update(update_data)
         db.session.commit()
-        return cls.get_one_by_id(id)
+        return cls.get_one_by_id(model_id)
 
     @classmethod
-    def get_one_by_id(cls, id: UUID) -> model_class:
-        return cls.model_class.query.get(id)
+    def get_one_by_id(cls, model_id: UUID) -> model_class:
+        return cls.model_class.query.get(model_id)
 
     @classmethod
     def create(cls, model: db.Model) -> model_class:
@@ -39,7 +39,7 @@ class BaseRepository(ABC):
         return model
 
     @classmethod
-    def delete_by_id(cls, id: UUID) -> int:
-        rows_deleted = cls._base_query().filter_by(id=id).delete()
+    def delete_by_id(cls, model_id: UUID) -> int:
+        rows_deleted = cls._base_query().filter_by(id=model_id).delete()
         db.session.commit()
         return rows_deleted

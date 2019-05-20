@@ -16,7 +16,7 @@ class Company(db.Model):
 
     id = default_uuid_pk()
     name = db.Column(db.String(256))
-    name_stub = db.Column(db.String(256))
+    name_slug = db.Column(db.String(256))
     address = db.Column(db.String(256))
     status = db.Column(db.Enum(CompanyStatus))
 

@@ -27,28 +27,31 @@ def get_companies() -> List[Company]:
     return CompanyRepository.get_all()
 
 
-def get_company(id: UUID) -> Company:
+def get_company(model_id: UUID) -> Company:
     """Get a company given the Id.
 
     Arguments:
-        id {UUID} -- Id of the company.
+        model_id {UUID} -- Id of the company.
 
     Returns:
         Company -- Company.
     """
-    return CompanyRepository.get_one_by_id(id)
+    return CompanyRepository.get_one_by_id(model_id)
 
 
-def update_company(id: UUID, **kwargs) -> Company:
+def update_company(model_id: UUID, **kwargs) -> Company:
     """Update company data.
 
     Arguments:
-        id {UUID} -- Company Id.
+        model_id {UUID} -- Company Id.
 
     Returns:
         Company -- Updated company.
     """
-    return CompanyRepository.update(id, name_stub=_get_name_stub(kwargs['name']), **kwargs)
+    return CompanyRepository.update(
+        model_id=model_id,
+        name_stub=_get_name_stub(kwargs['name']),
+        **kwargs)
 
 
 def create_company(**kwargs) -> Company:
@@ -63,13 +66,13 @@ def create_company(**kwargs) -> Company:
         address=kwargs['address']))
 
 
-def delete_company(id: UUID) -> int:
+def delete_company(model_id: UUID) -> int:
     """Delete company.
 
     Arguments:
-        id {UUID} -- Id of the company to be deleted.
+        model_id {UUID} -- Id of the company to be deleted.
 
     Returns:
         int -- Number of rows deleted.
     """
-    return CompanyRepository.delete_by_id(id)
+    return CompanyRepository.delete_by_id(model_id)
