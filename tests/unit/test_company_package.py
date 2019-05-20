@@ -84,12 +84,14 @@ def test_utils_get_companies(session):
 
 
 def test_utils_get_company(session):
-    assert isinstance(get_company(UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')), Company)
+    assert isinstance(
+            get_company(UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')),
+            Company)
 
 
 def test_utils_update_company(session):
     assert isinstance(update_company(
-        id=UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
+        model_id=UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
         name='Company name',
         address='Company address'), Company)
 
@@ -101,4 +103,6 @@ def test_utils_create_company(session):
 
 
 def test_utils_delete_company(session):
-    assert isinstance(delete_company(UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')), int)
+    assert isinstance(
+            delete_company(UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')),
+            int)

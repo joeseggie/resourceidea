@@ -11,8 +11,8 @@ class CompanyRepository(BaseRepository):
     model_class = Company
 
     @classmethod
-    def update(cls, id: UUID, **kwargs) -> model_class:
-        company = cls.get_one_by_id(id)
+    def update(cls, model_id: UUID, **kwargs) -> model_class:
+        company = cls.get_one_by_id(model_id)
         if not company:
             abort(404, message=f'Company was not found.')
         update_fields = ('name', 'name_stub', 'address')
