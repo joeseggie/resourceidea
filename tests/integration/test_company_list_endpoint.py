@@ -29,6 +29,7 @@ def test_create_company(app, session):
 
     # Assert
     assert 'code' in output
+    assert isinstance(output['code'], int)
     assert output['code'] == 201
     assert 'status' in output
     assert output['status'] == 'OK'

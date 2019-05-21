@@ -28,7 +28,7 @@ def test_get_by_id(session):
 
 
 def test_get_all(session):
-    assert isinstance(CompanyRepository.get_all(), list)
+    assert isinstance(CompanyRepository.get_all(sort_key='name', sort_order='asc'), list)
 
 
 def test_update_by_id(session):
@@ -80,7 +80,7 @@ def test_model_repr(session):
 
 
 def test_utils_get_companies(session):
-    assert isinstance(get_companies(), list)
+    assert isinstance(get_companies(sort_key='name', sort_order='asc'), list)
 
 
 def test_utils_get_company(session):
