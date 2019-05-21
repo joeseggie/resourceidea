@@ -24,7 +24,7 @@ def get_companies(**kwargs) -> List[Company]:
     Returns:
         List[Company] -- List of companies.
     """
-    return CompanyRepository.get_all()
+    return CompanyRepository.get_all(**kwargs)
 
 
 def get_company(model_id: UUID) -> Company:
