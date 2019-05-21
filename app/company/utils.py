@@ -6,7 +6,7 @@ from app.company.models import Company
 from app.company.repository import CompanyRepository
 
 
-def _get_name_stub(name: str) -> str:
+def _get_name_slug(name: str) -> str:
     """Get the stub of the company's name.
 
     Arguments:
@@ -15,10 +15,10 @@ def _get_name_stub(name: str) -> str:
     Returns:
         str -- Company name stub.
     """
-    return '-'.join(re.split(r'\W', name))
+    return '-'.join(re.split(r'\W', name.lower()))
 
 
-def get_companies() -> List[Company]:
+def get_companies(**kwargs) -> List[Company]:
     """Get a list of companies.
 
     Returns:
@@ -50,7 +50,7 @@ def update_company(model_id: UUID, **kwargs) -> Company:
     """
     return CompanyRepository.update(
         model_id=model_id,
-        name_stub=_get_name_stub(kwargs['name']),
+        name_slug=_get_name_slug(kwargs['name']),
         **kwargs)
 
 
@@ -62,7 +62,7 @@ def create_company(**kwargs) -> Company:
     """
     return CompanyRepository.create(Company(
         name=kwargs['name'],
-        name_stub=_get_name_stub(kwargs['name']),
+        name_slug=_get_name_slug(kwargs['name']),
         address=kwargs['address']))
 
 

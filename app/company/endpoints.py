@@ -3,6 +3,7 @@ from flask import request
 from flask_restful import Api
 from flask_restful import Resource
 
+from app.company.schemas import CompanyCreatedSchema
 from app.company.schemas import CompanyInputSchema
 from app.company.schemas import CompanyListFilterSchema
 from app.company.schemas import CompanyListSchema
@@ -21,8 +22,14 @@ class CompanyListResource(Resource):
         args = request.args
         validated_input = CompanyListFilterSchema(strict=True)\
             .load(args).data
-        companies_list = get_companies(**validated_input).data
-        output = CompanyListSchema(strict=True).dump(companies_list).data
+        companies_list = get_companies(**validated_input)
+        output = CompanyListSchema(strict=True).dump(
+            {
+                'status': 'OK',
+                'code': 200,
+                'data': companies_list
+            }
+        ).data
         return output, 200
 
     def post(self):
@@ -30,7 +37,11 @@ class CompanyListResource(Resource):
         validated_input = CompanyInputSchema(strict=True)\
             .load(payload).data
         new_company = create_company(**validated_input)
-        output = CompanyViewSchema(strict=True).dump(new_company).data
+        output = CompanyCreatedSchema(strict=True).dump({
+            'status': 'OK',
+            'code': 201,
+            'data': new_company
+        }).data
         return output, 201
 
 

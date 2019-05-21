@@ -15,7 +15,7 @@ from app.company.utils import update_company
 def test_create(session):
     new_company = Company(
         name='Company 1',
-        name_stub='company-1',
+        name_slug='company-1',
         address='Company address')
     new_company = CompanyRepository.create(new_company)
 
@@ -34,14 +34,14 @@ def test_get_all(session):
 def test_update_by_id(session):
     # Act
     result = CompanyRepository.update(
-        id=UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
+        model_id=UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
         name='Company name 1',
-        name_stub='company-name-1',
+        name_slug='company-name-1',
         address='Company address 1')
     # Assert
     assert isinstance(result, Company)
     assert result.name == 'Company name 1'
-    assert result.name_stub == 'company-name-1'
+    assert result.name_slug == 'company-name-1'
     assert result.address == 'Company address 1'
     assert result.id == UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')
 
@@ -57,9 +57,9 @@ def test_update_when_not_found_raises_not_found_exception(session):
     # Assert
     with pytest.raises(NotFound):
         CompanyRepository.update(
-            id=UUID('91c4b0b8-cf93-4b0b-8986-58c94aa2c578'),
+            model_id=UUID('91c4b0b8-cf93-4b0b-8986-58c94aa2c578'),
             name='Company name 1',
-            name_stub='company-name-1',
+            name_slug='company-name-1',
             address='Company address 1')
 
 
@@ -73,7 +73,7 @@ def test_delete_when_not_found_returns_zero(session):
 def test_model_repr(session):
     new_company = Company(
         name='Company 1',
-        name_stub='company-1',
+        name_slug='company-1',
         address='Company address')
     # Assert
     repr(new_company) == '<Company Company 1>'
