@@ -14,6 +14,12 @@ class CompanyViewSchema(Schema):
     status = EnumField(CompanyStatus)
 
 
+class CompanyCreatedSchema(Schema):
+    status = fields.String()
+    code = fields.Integer()
+    data = fields.Nested(CompanyViewSchema)
+
+
 class CompanyListSchema(Schema):
     status = fields.String()
     code = fields.Integer()
@@ -21,7 +27,7 @@ class CompanyListSchema(Schema):
 
 
 class CompanyListFilterSchema(Schema):
-    sort_key = fields.String(OneOf(['name']), missing='name')
+    sort_key = fields.String(OneOf(['name', 'status']), missing='name')
     sort_order = fields.String(missing='asc')
 
 

@@ -3,13 +3,13 @@ Application initialization.
 '''
 from flask import Flask
 from flask_migrate import Migrate
-from flask_restful import Api
 
 from database import db
 from .views.index import Index
 from .views.assignment import AssignmentListResource, AssignmentResource
 from .views.service_plan import ServicePlanListResource, ServicePlanResource
 from app.assignment_status.endpoints import assignment_status_bp
+from app.company.endpoints import company_bp
 
 
 CONFIG_ENV = {
@@ -36,6 +36,7 @@ def create_app(config_name='default'):
     # api.add_resource(AssignmentResource, '/api/v1/assignments/<int:id>')
     # api.add_resource(ServicePlanListResource, '/api/v1/serviceplans')
     # api.add_resource(ServicePlanResource, '/api/v1/serviceplans/<int:id>')
+    app.register_blueprint(company_bp, url_prefix=f'{API_URL_PREFIX}')
     app.register_blueprint(assignment_status_bp, url_prefix=f'{API_URL_PREFIX}')
 
     return app
