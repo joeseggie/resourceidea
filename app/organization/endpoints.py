@@ -3,16 +3,15 @@ from flask import request
 from flask_restful import Api
 from flask_restful import Resource
 
-from app.company.schemas import CompanyCreatedSchema
-from app.company.schemas import CompanyInputSchema
-from app.company.schemas import CompanyListFilterSchema
-from app.company.schemas import CompanyListSchema
-from app.company.schemas import CompanyViewSchema
-from app.company.utils import create_company
-from app.company.utils import get_companies
+from app.organization.schemas import CompanyCreatedSchema
+from app.organization.schemas import CompanyInputSchema
+from app.organization.schemas import CompanyListFilterSchema
+from app.organization.schemas import CompanyListSchema
+from app.organization.utils import create_organization
+from app.organization.utils import get_organizations
 
 
-company_bp = Blueprint('company', __name__)
+company_bp = Blueprint('organization', __name__)
 company_api = Api(company_bp)
 ENDPOINT_PREFIX = '/companies'
 
@@ -22,7 +21,7 @@ class CompanyListResource(Resource):
         args = request.args
         validated_input = CompanyListFilterSchema(strict=True)\
             .load(args).data
-        companies_list = get_companies(**validated_input)
+        companies_list = get_organizations(**validated_input)
         output = CompanyListSchema(strict=True).dump(
             {
                 'status': 'OK',
@@ -36,7 +35,7 @@ class CompanyListResource(Resource):
         payload = request.json
         validated_input = CompanyInputSchema(strict=True)\
             .load(payload).data
-        new_company = create_company(**validated_input)
+        new_company = create_organization(**validated_input)
         output = CompanyCreatedSchema(strict=True).dump({
             'status': 'OK',
             'code': 201,
