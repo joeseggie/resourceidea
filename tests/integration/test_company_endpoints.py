@@ -6,7 +6,7 @@ def test_list_companies(app, session):
     client = app.test_client()
 
     # Act
-    resp = client.get('/api/v0.1/company')
+    resp = client.get('/api/v0.1/companies')
     response_output = json.loads(resp.get_data(as_text=True))
 
     # Assert
@@ -22,7 +22,7 @@ def test_create_company(app, session):
     client = app.test_client()
 
     # Act
-    client_response = client.post('/api/v0.1/company',
+    client_response = client.post('/api/v0.1/companies',
                                   json=dict(name='Test company',
                                             address='Test address'))
     output = json.loads(client_response.get_data(as_text=True))
