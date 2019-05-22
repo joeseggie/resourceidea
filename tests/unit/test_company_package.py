@@ -3,7 +3,7 @@ from uuid import UUID
 import pytest
 from werkzeug.exceptions import NotFound
 
-from app.company.repository import CompanyRepository
+from app.company.repositories import CompanyRepository
 from app.company.models import Company
 from app.company.utils import create_company
 from app.company.utils import delete_company
