@@ -14,7 +14,7 @@ from app.company.utils import get_companies
 
 company_bp = Blueprint('company', __name__)
 company_api = Api(company_bp)
-ENDPOINT_PREFIX = '/company'
+ENDPOINT_PREFIX = '/companies'
 
 
 class CompanyListResource(Resource):
