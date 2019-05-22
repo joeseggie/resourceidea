@@ -3,7 +3,7 @@ from typing import List
 from uuid import UUID
 
 from app.company.models import Company
-from app.company.repository import CompanyRepository
+from app.company.repositories import CompanyRepository
 
 
 def _get_name_slug(name: str) -> str:
