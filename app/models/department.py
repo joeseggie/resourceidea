@@ -17,7 +17,7 @@ class Department(db.Model):
 
     company_id = db.Column(
         db.Integer,
-        db.ForeignKey('company.id')
+        db.ForeignKey('organization.id')
     )
     company = db.relationship(
         'Company',

@@ -9,7 +9,7 @@ from .views.index import Index
 from .views.assignment import AssignmentListResource, AssignmentResource
 from .views.service_plan import ServicePlanListResource, ServicePlanResource
 from app.assignment_status.endpoints import assignment_status_bp
-from app.company.endpoints import company_bp
+from app.organization.endpoints import company_bp
 
 
 CONFIG_ENV = {
@@ -37,6 +37,8 @@ def create_app(config_name='default'):
     # api.add_resource(ServicePlanListResource, '/api/v1/serviceplans')
     # api.add_resource(ServicePlanResource, '/api/v1/serviceplans/<int:id>')
     app.register_blueprint(company_bp, url_prefix=f'{API_URL_PREFIX}')
-    app.register_blueprint(assignment_status_bp, url_prefix=f'{API_URL_PREFIX}')
+    app.register_blueprint(
+        assignment_status_bp,
+        url_prefix=f'{API_URL_PREFIX}')
 
     return app
