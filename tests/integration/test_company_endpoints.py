@@ -23,7 +23,7 @@ def test_create_company(app, session):
 
     # Act
     client_response = client.post('/api/v0.1/companies',
-                                  json=dict(name='Test company',
+                                  json=dict(name='Test organization',
                                             address='Test address'))
     output = json.loads(client_response.get_data(as_text=True))
 

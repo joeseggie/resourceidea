@@ -13,7 +13,7 @@ from app.organization.utils import get_organizations
 
 company_bp = Blueprint('organization', __name__)
 company_api = Api(company_bp)
-ENDPOINT_PREFIX = '/companies'
+COMPANY_ENDPOINT_PREFIX = '/companies'
 
 
 class CompanyListResource(Resource):
@@ -44,4 +44,4 @@ class CompanyListResource(Resource):
         return output, 201
 
 
-company_api.add_resource(CompanyListResource, f'{ENDPOINT_PREFIX}')
+company_api.add_resource(CompanyListResource, COMPANY_ENDPOINT_PREFIX)

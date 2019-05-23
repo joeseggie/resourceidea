@@ -1,8 +1,8 @@
 from uuid import uuid4
 
 from sqlalchemy import Column
-from sqlalchemy_utils import UUIDType
+from sqlalchemy.dialects.postgresql import UUID
 
 
 def default_uuid_pk():
-    return Column(UUIDType(binary=False), primary_key=True, default=uuid4)
+    return Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
