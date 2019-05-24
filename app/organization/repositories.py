@@ -14,13 +14,12 @@ class OrganizationRepository(BaseRepository):
     def update(cls, model_id: UUID, **kwargs) -> model_class:
         company = cls.get_one_by_id(model_id)
         if not company:
-            abort(404, message=f'Organization was not found.')
+            abort(404, message='Organization was not found.')
         update_fields = ('name', 'name_slug', 'address')
         return cls.update_by_id(model_id, update_fields, **kwargs)
 
     @classmethod
     def get_all(cls, **kwargs) -> List[model_class]:
-        print(kwargs)
         sort_key = kwargs.get('sort_key')
         sort_order = kwargs.get('sort_order')
 
