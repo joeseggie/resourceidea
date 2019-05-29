@@ -1,8 +1,6 @@
 from typing import List
 from uuid import UUID
 
-from flask_restful import abort
-
 from app.common.base_repository import BaseRepository
 from app.organization.models import Organization
 
@@ -12,9 +10,6 @@ class OrganizationRepository(BaseRepository):
 
     @classmethod
     def update(cls, model_id: UUID, **kwargs) -> model_class:
-        company = cls.get_one_by_id(model_id)
-        if not company:
-            abort(404, message='Organization was not found.')
         update_fields = ('name', 'name_slug', 'address')
         return cls.update_by_id(model_id, update_fields, **kwargs)
 

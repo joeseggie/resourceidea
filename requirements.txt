@@ -2,6 +2,7 @@ alembic==1.0.7
 aniso8601==5.1.0
 atomicwrites==1.2.1
 attrs==18.2.0
+autopep8==1.4.4
 certifi==2018.11.29
 chardet==3.0.4
 Click==7.0
@@ -20,7 +21,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 Mako==1.0.7
 MarkupSafe==1.1.0
-marshmallow==2.19.1
+marshmallow==2.19.2
 marshmallow-enum==1.4.1
 mccabe==0.6.1
 more-itertools==5.0.0

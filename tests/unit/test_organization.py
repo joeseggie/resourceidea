@@ -32,13 +32,21 @@ def test_create(session):
     new_organization = OrganizationRepository.create(new_organization)
 
     # Assert
-    assert isinstance(new_organization.id, UUID)
+    assert isinstance(new_organization.id, str)
 
 
 def test_get_by_id(session):
-    organization = OrganizationRepository.get_one_by_id(
-            UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'))
-    assert isinstance(organization, Organization)
+    test_organization = OrganizationRepository.get_all(
+        sort_key='name',
+        sort_order='asc'
+    )[0]
+    result = OrganizationRepository.get_one_by_id(test_organization.id)
+    assert isinstance(result, Organization)
+    assert result.id == test_organization.id
+    assert result.name == test_organization.name
+    assert result.name_slug == test_organization.name_slug
+    assert result.address == test_organization.address
+    assert result.status == test_organization.status
 
 
 def test_get_all(session):
@@ -49,9 +57,14 @@ def test_get_all(session):
 
 
 def test_update_by_id(session):
+    # Arrange
+    test_organization = OrganizationRepository.get_all(
+        sort_key='name',
+        sort_order='asc'
+    )[0]
     # Act
     result = OrganizationRepository.update(
-        model_id=UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
+        model_id=test_organization.id,
         name='Organization name 1',
         name_slug='organization-name-1',
         address='Organization address 1')
@@ -60,13 +73,19 @@ def test_update_by_id(session):
     assert result.name == 'Organization name 1'
     assert result.name_slug == 'organization-name-1'
     assert result.address == 'Organization address 1'
-    assert result.id == UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')
+    assert result.id == test_organization.id
 
 
 def test_delete_by_id(session):
+    # Arrange
+    test_organization = OrganizationRepository.get_all(
+        sort_key='name',
+        sort_order='asc'
+    )[0]
+
     # Act
     result = OrganizationRepository.delete_by_id(
-            UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'))
+            test_organization.id)
     # Assert
     assert result == 1
 
@@ -75,7 +94,7 @@ def test_update_when_not_found_raises_not_found_exception(session):
     # Assert
     with pytest.raises(NotFound):
         OrganizationRepository.update(
-            model_id=UUID('91c4b0b8-cf93-4b0b-8986-58c94aa2c578'),
+            model_id='71c4b0b8-cf93-4b0b-8986-58c94aa2c578',
             name='Organization name 1',
             name_slug='organization-name-1',
             address='Organization address 1')
@@ -83,8 +102,7 @@ def test_update_when_not_found_raises_not_found_exception(session):
 
 def test_delete_when_not_found_returns_zero(session):
     # Act
-    result = OrganizationRepository.delete_by_id(
-            UUID('91c4b0b8-cf93-4b0b-8986-58c94aa2c578'))
+    result = OrganizationRepository.delete_by_id('91c4b0b8-cf93-4b0b-8986-58c94aa2c578')
     # Assert
     assert result == 0
 
@@ -104,14 +122,23 @@ def test_utils_get_organizations(session):
 
 
 def test_utils_get_organization(session):
+    # Arrange
+    test_organization = OrganizationRepository.get_all(
+        sort_key='name',
+        sort_order='asc'
+    )[0]
     assert isinstance(
-            get_organization(UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')),
+            get_organization(test_organization.id),
             Organization)
 
 
 def test_utils_update_organization(session):
+    test_organization = OrganizationRepository.get_all(
+        sort_key='name',
+        sort_order='asc'
+    )[0]
     assert isinstance(update_organization(
-        model_id=UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
+        model_id=test_organization.id,
         name='Organization name',
         address='Organization address'), Organization)
 
@@ -124,5 +151,5 @@ def test_utils_create_organization(session):
 
 def test_utils_delete_organization(session):
     assert isinstance(
-            delete_organization(UUID('91c4b0b8-cf94-4b0b-8986-58c94aa2c578')),
+            delete_organization('91c4b0b8-cf94-4b0b-8986-58c94aa2c578'),
             int)

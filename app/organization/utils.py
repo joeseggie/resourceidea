@@ -2,6 +2,7 @@ import re
 from typing import List
 from uuid import UUID
 
+from app.common.enums import OrganizationStatus
 from app.organization.models import Organization
 from app.organization.repositories import OrganizationRepository
 
@@ -63,7 +64,8 @@ def create_organization(**kwargs) -> Organization:
     return OrganizationRepository.create(Organization(
         name=kwargs['name'],
         name_slug=get_name_slug(kwargs['name']),
-        address=kwargs['address']))
+        address=kwargs['address'],
+        status=OrganizationStatus.ACTIVE))
 
 
 def delete_organization(model_id: UUID) -> int:
