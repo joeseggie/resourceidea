@@ -14,8 +14,8 @@ class AssignmentStatus(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(50))
-    assignments = db.relationship(
-        'Assignment',
-        backref='assignment_status',
-        lazy='dynamic'
-    )
+    # assignments = db.relationship(
+    #     'Assignment',
+    #     backref='assignment_status',
+    #     lazy='dynamic'
+    # )

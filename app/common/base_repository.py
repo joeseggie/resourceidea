@@ -6,6 +6,7 @@ from typing import Union
 from uuid import UUID
 
 from sqlalchemy.orm import Query
+from werkzeug.exceptions import NotFound
 
 from database import db
 
@@ -18,15 +19,18 @@ class BaseRepository(ABC):
         return cls.model_class.query
 
     @classmethod
-    def update_by_id(cls, model_id: UUID, fields_for_update: Union[Tuple, List], **kwargs) -> Query:
-        update_data = {}
-        for field in fields_for_update:
-            if field in kwargs:
-                update_data[field] = kwargs[field]
+    def update_by_id(cls, model_id: UUID,
+                     fields_for_update: Union[Tuple, List],
+                     **kwargs) -> model_class:
+        if cls._model_exists(model_id):
+            update_data = {}
+            for field in fields_for_update:
+                if field in kwargs:
+                    update_data[field] = kwargs[field]
 
-        cls._base_query().filter_by(id=model_id).update(update_data)
-        db.session.commit()
-        return cls.get_one_by_id(model_id)
+            cls._base_query().filter_by(id=model_id).update(update_data)
+            db.session.commit()
+            return cls.get_one_by_id(model_id)
 
     @classmethod
     def get_one_by_id(cls, model_id: UUID) -> model_class:
@@ -43,3 +47,11 @@ class BaseRepository(ABC):
         rows_deleted = cls._base_query().filter_by(id=model_id).delete()
         db.session.commit()
         return rows_deleted
+
+    @classmethod
+    def _model_exists(cls, model_id: UUID) -> bool:
+        model_query = cls.get_one_by_id(model_id)
+        if model_query:
+            return True
+        else:
+            raise NotFound('Model does not exist')
