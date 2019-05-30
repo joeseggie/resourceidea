@@ -21,7 +21,6 @@ class Signup(Resource):
             payload = request.json
             validated_input = SignupInputSchema(strict=True)\
                 .load(payload).data
-            print(validated_input)
             signup_response = signup(**validated_input)
             status = 'OK'
             status_code = 201
