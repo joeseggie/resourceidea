@@ -1,13 +1,22 @@
+from uuid import UUID
+
 from flask import json
 
 
 def test_signup(app, session):
     # Arrange
     client = app.test_client()
+    request_body = {
+        'organization': 'Test xx organization',
+        'username': 'test123',
+        'password': 'strong_password',
+        'confirm_password': 'strong_password',
+        'email': 'joeseggie@gmail.com'
+    }
 
     # Act
     client_response = client.post('/api/v0.1/signup',
-                                  json=dict(organization='Test organization'))
+                                  json=request_body)
     output = json.loads(client_response.get_data(as_text=True))
 
     # Assert
@@ -15,3 +24,9 @@ def test_signup(app, session):
     assert 'status' in output
     assert output['status'] == 'OK'
     assert 'data' in output
+    assert isinstance(output['data'], dict)
+    assert output['data']['organization'] == 'Test xx organization'
+    assert output['data']['username'] == 'test123'
+    assert output['data']['organization_slug'] == 'test-xx-organization'
+    assert isinstance(UUID(output['data']['user_id']), UUID)
+    assert isinstance(UUID(output['data']['organization_id']), UUID)

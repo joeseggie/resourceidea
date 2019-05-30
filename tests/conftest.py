@@ -46,8 +46,6 @@ def session(db, request):
         name_slug='organization-2',
         address='Company 2 address')
 
-    print(company_2.id)
-
     user_1 = UserAccount(
         username='test_user',
         password='password',

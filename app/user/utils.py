@@ -16,14 +16,32 @@ def get_all_users(**kwargs) -> List[UserAccount]:
     return UserRepository.get_all(**kwargs)
 
 
-def create_user(**kwargs) -> UserAccount:
+def create_user(
+                organization_id: UUID,
+                username: str,
+                password: str,
+                email: str,
+                **kwargs) -> UserAccount:
     """
-    Create a new user account.
+    Create a new user.
+
+    Args:
+        organization_id {UUID}: Id for the user's organization.
+        username {str}: User's username.
+        password {str}: User's password.
+        email {str}: User's email.
 
     Returns:
-        UserAccount: User account created.
+        UserAccount: New user account.
     """
-    return UserRepository.create(**kwargs)
+    new_user_account = UserAccount()
+    new_user_account.username = username
+    new_user_account.password = password
+    new_user_account.email = email
+    new_user_account.organization_id = organization_id
+    new_user_account.phone_number = kwargs.get('phone_number', None)
+
+    return UserRepository.create(new_user_account)
 
 
 def get_user(user_id: UUID) -> UserAccount:
