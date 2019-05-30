@@ -15,8 +15,7 @@ def test_signup(app, session):
     }
 
     # Act
-    client_response = client.post('/api/v0.1/signup',
-                                  json=request_body)
+    client_response = client.post('/api/v0.1/signup', json=request_body)
     output = json.loads(client_response.get_data(as_text=True))
 
     # Assert
@@ -30,3 +29,24 @@ def test_signup(app, session):
     assert output['data']['organization_slug'] == 'test-xx-organization'
     assert isinstance(UUID(output['data']['user_id']), UUID)
     assert isinstance(UUID(output['data']['organization_id']), UUID)
+
+
+def test_signup_organization_exists(app, session):
+    # Arrange
+    client = app.test_client()
+    request_body = {
+        'organization': 'Organization 1',
+        'username': 'test123',
+        'password': 'strong_password',
+        'confirm_password': 'strong_password',
+        'email': 'joeseggie@gmail.com'
+    }
+
+    # Act
+    client_response = client.post('/api/v0.1/signup', json=request_body)
+    output = json.loads(client_response.get_data(as_text=True))
+
+    # Assert
+    assert client_response.status_code == 400
+    assert 'status' in output
+    assert output['status'] == 'Organization name already exists'
