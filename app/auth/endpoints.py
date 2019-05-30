@@ -1,10 +1,7 @@
-import ast
-
 from flask import Blueprint
 from flask import request
 from flask_restful import Api
 from flask_restful import Resource
-from sqlalchemy.exc import IntegrityError
 
 from app.auth.schemas import SignupInputSchema
 from app.auth.schemas import SignupOutputSchema
