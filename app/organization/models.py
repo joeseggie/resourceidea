@@ -15,7 +15,7 @@ class Organization(BaseModel):
 
     __tablename__ = 'organization'
 
-    name = db.Column(db.String(256))
+    name = db.Column(db.String(256), unique=True)
     name_slug = db.Column(db.String(256), unique=True)
     address = db.Column(db.String(256))
     status = db.Column(db.Enum(OrganizationStatus))

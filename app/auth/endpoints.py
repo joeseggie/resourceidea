@@ -21,18 +21,18 @@ class Signup(Resource):
             payload = request.json
             validated_input = SignupInputSchema(strict=True)\
                 .load(payload).data
-            new_organization = signup(**validated_input)
+            signup_response = signup(**validated_input)
             status = 'OK'
             status_code = 201
         except IntegrityError as error:
             status_code = 400
-            new_organization = None
-            status, __ = error.orig.args
+            signup_response = None
+            status = error.orig.args
 
         output = SignupOutputSchema(strict=True)\
             .dump({
                 'status': status,
-                'data': new_organization
+                'data': signup_response
             }).data
         return output, status_code
 

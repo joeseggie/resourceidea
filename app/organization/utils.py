@@ -55,16 +55,16 @@ def update_organization(model_id: UUID, **kwargs) -> Organization:
         **kwargs)
 
 
-def create_organization(**kwargs) -> Organization:
+def create_organization(organization_name: str, address: str) -> Organization:
     """Add new organization.
 
     Returns:
         Organization -- New organization.
     """
     return OrganizationRepository.create(Organization(
-        name=kwargs['name'],
-        name_slug=get_name_slug(kwargs['name']),
-        address=kwargs['address'],
+        name=organization_name,
+        name_slug=get_name_slug(organization_name),
+        address=address,
         status=OrganizationStatus.ACTIVE))
 
 
