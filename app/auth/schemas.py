@@ -1,4 +1,5 @@
 from marshmallow import fields
+from marshmallow.validate import OneOf
 from marshmallow import pre_dump
 from marshmallow import Schema
 from marshmallow import validates_schema

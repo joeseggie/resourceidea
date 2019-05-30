@@ -21,13 +21,14 @@ class Signup(Resource):
             payload = request.json
             validated_input = SignupInputSchema(strict=True)\
                 .load(payload).data
+            print(validated_input)
             signup_response = signup(**validated_input)
             status = 'OK'
             status_code = 201
-        except IntegrityError as error:
+        except ValueError as error:
             status_code = 400
             signup_response = None
-            status = error.orig.args
+            status = error
 
         output = SignupOutputSchema(strict=True)\
             .dump({

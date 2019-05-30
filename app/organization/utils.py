@@ -40,6 +40,20 @@ def get_organization(model_id: UUID) -> Organization:
     return OrganizationRepository.get_one_by_id(model_id)
 
 
+def get_organization_by_name(name: str, **kwargs) -> Organization:
+    """
+    Get organization by name.
+
+    Args:
+        organization_name {str}: Organization name
+
+    Returns:
+        Organization: Organization.
+    """
+    kwargs['name_slug'] = get_name_slug(name)
+    return OrganizationRepository.get_all_by_name(**kwargs)
+
+
 def update_organization(model_id: UUID, **kwargs) -> Organization:
     """Update organization data.
 
