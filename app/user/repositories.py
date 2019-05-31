@@ -99,5 +99,4 @@ class UserRepository(BaseRepository):
         for field in list(kwargs.keys()):
             query = query.filter(
                 getattr(cls.model_class, field) == kwargs[field])
-        query = cls._sorted_user_accounts_query(query, **kwargs)
         return query.first()

@@ -145,7 +145,7 @@ def test_utils_update_organization(session):
 
 def test_utils_create_organization(session):
     assert isinstance(create_organization(
-        name='Organization name',
+        organization_name='Organization name',
         address='Organization address'), Organization)
 
 

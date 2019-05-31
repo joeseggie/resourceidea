@@ -1,10 +1,7 @@
-import ast
-
 from flask import Blueprint
 from flask import request
 from flask_restful import Api
 from flask_restful import Resource
-from sqlalchemy.exc import IntegrityError
 
 from app.auth.schemas import SignupInputSchema
 from app.auth.schemas import SignupOutputSchema
@@ -21,18 +18,18 @@ class Signup(Resource):
             payload = request.json
             validated_input = SignupInputSchema(strict=True)\
                 .load(payload).data
-            new_organization = signup(**validated_input)
+            signup_response = signup(**validated_input)
             status = 'OK'
             status_code = 201
-        except IntegrityError as error:
+        except ValueError as error:
             status_code = 400
-            new_organization = None
-            status, __ = error.orig.args
+            signup_response = None
+            status = error
 
         output = SignupOutputSchema(strict=True)\
             .dump({
                 'status': status,
-                'data': new_organization
+                'data': signup_response
             }).data
         return output, status_code
 

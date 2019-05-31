@@ -38,15 +38,13 @@ def session(db, request):
     db.session = session
 
     company_1 = Organization(
-        name='Company 1',
+        name='Organization 1',
         name_slug='organization-1',
-        address='Company 1 address')
+        address='Organization 1 address')
     company_2 = Organization(
-        name='Company 2',
+        name='Organization 2',
         name_slug='organization-2',
-        address='Company 2 address')
-
-    print(company_2.id)
+        address='Organization 2 address')
 
     user_1 = UserAccount(
         username='test_user',
