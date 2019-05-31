@@ -13,7 +13,7 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database resourceidea_test;' -U postgres
-  - psql -c 'create extension if not exists "uuid-ossp";'
+  - psql -U postgres resourceidea_test -c 'create extension if not exists "uuid-ossp";'
 # command to run tests
 script:
   - pytest -p no:warnings --cov-report=term-missing --cov=app
