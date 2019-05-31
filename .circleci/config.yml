@@ -27,6 +27,10 @@ jobs:
           paths:
             - "venv"
       - run:
+          name: postgres extensions
+          command: |
+            psql -U riuser resourceidea_test -c 'create extension if not exists "uuid-ossp";'
+      - run:
           name: run tests
           command: |
             . venv/bin/activate
