@@ -7,7 +7,7 @@ install:
 # environment
 env:
   FLASK_ENV=testing
-  TEST_SQLALCHEMY_DATABASE_URI=postgresql://postgres@localhost/resourceidea_test?sslmode=disable
+  DEV_SQLALCHEMY_DATABASE_URI=postgresql://postgres@localhost/resourceidea_test?sslmode=disable
   SECRET_KEY=kmJnJ8NQDOjn+FrLappG9A4EfL
 services:
   - postgresql
