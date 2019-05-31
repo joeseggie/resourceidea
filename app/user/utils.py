@@ -57,6 +57,52 @@ def get_user(user_id: UUID) -> UserAccount:
     return UserRepository.get_one_by_id(model_id=user_id)
 
 
+def get_user_by_username(username: str, **kwargs) -> UserAccount:
+    """
+    Get a user by username
+
+    Args:
+        username {str}: User's username.
+
+    Returns:
+        UserAccount: User account whose username is supplied.
+    """
+    filter_field = {'username': username}
+    return UserRepository.get_one_by_field(**filter_field)
+
+
+def get_user_by_email(email: str, **kwargs) -> UserAccount:
+    """
+    Get a user by email
+
+    Args:
+        email {str}: User's email.
+
+    Returns:
+        UserAccount: User account whose email is supplied.
+    """
+    filter_field = {'email': email}
+    return UserRepository.get_one_by_field(**filter_field)
+
+
+def get_user_by_phone_number(**kwargs) -> UserAccount:
+    """
+    Get a user by phone_number
+
+    Args:
+        phone_number {str}: User's phone number
+
+    Returns:
+        UserAccount: User account whose email is supplied.
+    """
+    if 'phone_number' in kwargs:
+        phone_number = kwargs.get('phone_number', None)
+        if phone_number:
+            filter_field = {'phone_number': phone_number}
+            return UserRepository.get_one_by_field(**filter_field)
+    return
+
+
 def update_user(user_id: UUID, **kwargs) -> UserAccount:
     """
     Updates a user account's details.
