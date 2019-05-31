@@ -7,7 +7,7 @@ jobs:
           FLASK_ENV: testing
           DEV_SQLALCHEMY_DATABASE_URI: postgresql://riuser@localhost/resourceidea_test?sslmode=disable
           SECRET_KEY: kmJnJ8NQDOjn+FrLappG9A4EfL
-      - image: circleci/postgres:11-alpine-ram
+      - image: circleci/postgres:9.6.12
         environment:
           POSTGRES_USER: riuser
           POSTGRES_DB: resourceidea_test
