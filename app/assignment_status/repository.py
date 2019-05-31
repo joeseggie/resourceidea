@@ -1,36 +1,25 @@
-"""Assignment status model
-"""
+from .models import AssignmentStatus
 from database import db
 
 
-class AssignmentStatus(db.Model):
-    """Assignment status model.
+class AssignmentStatusRepository():
 
-    Parameters
-    ----------
-    db : Model
-    """
-    __tablename__ = 'assignment_status'
-
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(50))
-    assignments = db.relationship(
-        'Assignment',
-        backref='assignment_status',
-        lazy='dynamic'
-    )
-
-    def save(self):
+    @staticmethod
+    def save(**kwargs):
         '''
         Add new assignment status.
         '''
-        status_exists = AssignmentStatus.query.filter_by(
-            description=self.description
-        ).items
+        description = kwargs.get('description', '')
+        status_exists = AssignmentStatus.query.filter(AssignmentStatus.description == description).all()
         if not status_exists:
-            new_status = AssignmentStatus(description=self.description)
-            db.session.add(new_status)
+            new_assignment_status = AssignmentStatus(description=description)
+            db.session.add(new_assignment_status)
             db.session.commit()
+            return {
+                'status': 'OK',
+                'code': 201,
+                'data': new_assignment_status
+            }
         else:
             raise ValueError('Status already exists.')
 
@@ -38,9 +27,7 @@ class AssignmentStatus(db.Model):
         '''
         update existing assignment status.
         '''
-        status_exists = AssignmentStatus.query.filter_by(
-            description=self.description
-        ).items
+        status_exists = AssignmentStatus.query.filter_by(description=self.description).items
         if status_exists and status_exists.id == status_update['id']:
             assignment_status = AssignmentStatus.query.get(status_update['id'])
             assignment_status.description = status_update['description']
@@ -67,3 +54,12 @@ class AssignmentStatus(db.Model):
             return assignment_status
         else:
             raise ValueError('Assignment status with the Id does not exist.')
+
+    @staticmethod
+    def list_all():
+        assignment_statuses = AssignmentStatus.query.all()
+        return {
+            'status': 'OK',
+            'code': 200,
+            'data': assignment_statuses
+        }

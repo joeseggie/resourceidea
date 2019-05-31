@@ -1,17 +1,13 @@
 '''
 Application initialization.
 '''
-
-from database import db
 from flask import Flask
 from flask_migrate import Migrate
-from flask_restful import Api
 
-from .views.index import Index
-from .views.assignment import AssignmentListResource, AssignmentResource
-from .views.service_plan import ServicePlanListResource, ServicePlanResource
-from .views.assignment_status import AssignmentStatusListResource, \
-    AssignmentStatusResource
+from database import db
+from app.auth.endpoints import auth_bp
+from app.organization.endpoints import organization_bp
+from app.user.endpoints import user_bp
 
 
 CONFIG_ENV = {
@@ -20,6 +16,7 @@ CONFIG_ENV = {
     'production': 'config.production.ProductionConfig',
     'testing': 'config.testing.TestingConfig',
 }
+API_URL_PREFIX = '/api/v0.1'
 
 
 migrate = Migrate()
@@ -30,20 +27,8 @@ def create_app(config_name='default'):
     app.config.from_object(CONFIG_ENV[config_name])
     db.init_app(app)
     migrate.init_app(app, db)
-    api = Api(app)
-
-    api.add_resource(Index, '/api/v1')
-    api.add_resource(AssignmentListResource, '/api/v1/assignments')
-    api.add_resource(AssignmentResource, '/api/v1/assignments/<int:id>')
-    api.add_resource(ServicePlanListResource, '/api/v1/serviceplans')
-    api.add_resource(ServicePlanResource, '/api/v1/serviceplans/<int:id>')
-    api.add_resource(
-        AssignmentStatusListResource,
-        '/api/v1/assignmentstatuses'
-    )
-    api.add_resource(
-        AssignmentStatusResource,
-        '/api/v1/assignmentstatuses/<int:id>'
-    )
+    app.register_blueprint(organization_bp, url_prefix=API_URL_PREFIX)
+    app.register_blueprint(user_bp, url_prefix=API_URL_PREFIX)
+    app.register_blueprint(auth_bp, url_prefix=API_URL_PREFIX)
 
     return app
