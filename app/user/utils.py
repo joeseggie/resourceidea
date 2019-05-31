@@ -16,14 +16,32 @@ def get_all_users(**kwargs) -> List[UserAccount]:
     return UserRepository.get_all(**kwargs)
 
 
-def create_user(**kwargs) -> UserAccount:
+def create_user(
+                organization_id: UUID,
+                username: str,
+                password: str,
+                email: str,
+                **kwargs) -> UserAccount:
     """
-    Create a new user account.
+    Create a new user.
+
+    Args:
+        organization_id {UUID}: Id for the user's organization.
+        username {str}: User's username.
+        password {str}: User's password.
+        email {str}: User's email.
 
     Returns:
-        UserAccount: User account created.
+        UserAccount: New user account.
     """
-    return UserRepository.create(**kwargs)
+    new_user_account = UserAccount()
+    new_user_account.username = username
+    new_user_account.password = password
+    new_user_account.email = email
+    new_user_account.organization_id = organization_id
+    new_user_account.phone_number = kwargs.get('phone_number', None)
+
+    return UserRepository.create(new_user_account)
 
 
 def get_user(user_id: UUID) -> UserAccount:
@@ -37,6 +55,52 @@ def get_user(user_id: UUID) -> UserAccount:
         UserAccount: User account whose Id was supplied.
     """
     return UserRepository.get_one_by_id(model_id=user_id)
+
+
+def get_user_by_username(username: str, **kwargs) -> UserAccount:
+    """
+    Get a user by username
+
+    Args:
+        username {str}: User's username.
+
+    Returns:
+        UserAccount: User account whose username is supplied.
+    """
+    filter_field = {'username': username}
+    return UserRepository.get_one_by_field(**filter_field)
+
+
+def get_user_by_email(email: str, **kwargs) -> UserAccount:
+    """
+    Get a user by email
+
+    Args:
+        email {str}: User's email.
+
+    Returns:
+        UserAccount: User account whose email is supplied.
+    """
+    filter_field = {'email': email}
+    return UserRepository.get_one_by_field(**filter_field)
+
+
+def get_user_by_phone_number(**kwargs) -> UserAccount:
+    """
+    Get a user by phone_number
+
+    Args:
+        phone_number {str}: User's phone number
+
+    Returns:
+        UserAccount: User account whose email is supplied.
+    """
+    if 'phone_number' in kwargs:
+        phone_number = kwargs.get('phone_number', None)
+        if phone_number:
+            filter_field = {'phone_number': phone_number}
+            return UserRepository.get_one_by_field(**filter_field)
+    return
 
 
 def update_user(user_id: UUID, **kwargs) -> UserAccount:

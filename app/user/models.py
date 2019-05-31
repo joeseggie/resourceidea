@@ -25,10 +25,5 @@ class UserAccount(BaseModel):
     phone_number_confirmed = db.Column(db.Boolean, nullable=True)
     organization_id = db.Column(UUID, db.ForeignKey('organization.id'))
 
-    # employee = db.relationship(
-    #     'Employee',
-    #     uselist=False,
-    #     backref='user_account')
-
     def __repr__(self):
-        return '<User %r>' % self.normalized_email
+        return '<User %r>' % self.username
