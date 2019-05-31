@@ -43,7 +43,7 @@ jobs:
       - run:
           name: PostgreSQL Extensions
           command: |
-            sudo psql -h localhost -p 5432 -U riuser -c 'create extension if not exists "uuid-ossp";'
+            sudo psql -U riuser -h localhost -p 5432 -c 'create extension if not exists "uuid-ossp";'
       - run:
           name: Run Tests
           command: |
