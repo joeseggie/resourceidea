@@ -1,4 +1,3 @@
-from uuid import UUID
 from faker import Faker
 from faker.providers import address
 from faker.providers import company
@@ -102,7 +101,8 @@ def test_update_when_not_found_raises_not_found_exception(session):
 
 def test_delete_when_not_found_returns_zero(session):
     # Act
-    result = OrganizationRepository.delete_by_id('91c4b0b8-cf93-4b0b-8986-58c94aa2c578')
+    result = OrganizationRepository\
+        .delete_by_id('91c4b0b8-cf93-4b0b-8986-58c94aa2c578')
     # Assert
     assert result == 0
 
