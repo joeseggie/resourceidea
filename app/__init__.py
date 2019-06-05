@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 
 from database import db
 from app.auth.endpoints import auth_bp
+from app.role.endpoints import role_bp
 from app.organization.endpoints import organization_bp
 from app.user.endpoints import user_bp
 
@@ -30,5 +31,6 @@ def create_app(config_name='default'):
     app.register_blueprint(organization_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(user_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(auth_bp, url_prefix=API_URL_PREFIX)
+    app.register_blueprint(role_bp, url_prefix=API_URL_PREFIX)
 
     return app
