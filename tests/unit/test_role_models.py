@@ -12,5 +12,4 @@ def test_model_repr(session):
     result = repr(role_obj)
 
     # Assert
-    if result != '<Role Administrator>':
-        raise AssertionError()
+    assert result == '<Role Administrator>'
