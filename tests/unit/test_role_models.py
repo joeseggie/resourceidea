@@ -1,4 +1,4 @@
-from app.role.models import Role
+from app.role.models.role import Role
 
 
 def test_model_repr(session):
