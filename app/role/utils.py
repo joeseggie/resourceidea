@@ -1,7 +1,7 @@
 from uuid import UUID
 
-from app.role.models import Role
-from app.role.repositories import RoleRepository
+from app.role.models.role import Role
+from app.role.repositories.role_repository import RoleRepository
 
 
 def create_role(role_name: str):
