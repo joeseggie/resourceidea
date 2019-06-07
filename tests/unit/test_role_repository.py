@@ -71,3 +71,30 @@ def test_create(session):
     assert isinstance(result, Role)
     assert result.name == role_name
     assert result.normalized_name == normalized_role_name
+
+
+def test_update_by_id(session):
+    """
+    Test role repository update_by_id function.
+    """
+    # Arrange
+    role_name = 'New Role'
+    normalized_role_name = 'new-role'
+    test_stub = RoleRepository.create(
+        Role(name=role_name, normalized_name=normalized_role_name))
+    update_fields = ('name', 'normalized_name')
+    role_update = 'Role update'
+    normalized_role_update = 'role-update'
+
+    # Act
+    result = RoleRepository.update_by_id(
+        model_id=test_stub.id,
+        fields_for_update=update_fields,
+        name=role_update,
+        normalized_name=normalized_role_update
+    )
+
+    # Assert
+    assert isinstance(result, Role)
+    assert result.normalized_name == normalized_role_update
+    assert result.name == role_update
