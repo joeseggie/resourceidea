@@ -2,6 +2,8 @@ import pytest
 
 from app import create_app
 from app.organization.models import Organization
+from app.role.models.role import Role
+from app.role.repositories.role_repository import RoleRepository
 from app.user.models import UserAccount
 from database import db as _db
 
@@ -59,6 +61,11 @@ def session(db, request):
         email='sample_mail@example.com',
         phone_number='000-2222-111',
         organization_id=company_2.id)
+
+    administrator_role = RoleRepository.get_by_name('administrator')
+    if not administrator_role:
+        role_1 = Role(name='Administrator', normalized_name='administrator')
+        db.session.add(role_1)
 
     db.session.add(company_1)
     db.session.add(company_2)

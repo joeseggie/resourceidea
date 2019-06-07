@@ -77,14 +77,12 @@ def test_update_by_id(session):
 
 def test_delete_by_id(session):
     # Arrange
-    test_organization = OrganizationRepository.get_all(
-        sort_key='name',
-        sort_order='asc'
-    )[0]
+    test_stub = OrganizationRepository.create(
+        Organization(name='Test org', name_slug='test-org'))
 
     # Act
     result = OrganizationRepository.delete_by_id(
-            test_organization.id)
+            test_stub.id)
     # Assert
     assert result == 1
 
