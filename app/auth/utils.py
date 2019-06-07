@@ -1,5 +1,8 @@
 from app.organization.utils import create_organization
 from app.organization.utils import get_organization_by_name
+from app.role.models.user_role import UserRole
+from app.role.repositories.role_repository import RoleRepository
+from app.role.repositories.user_role_repository import UserRoleRepository
 from app.user.utils import create_user
 from app.user.utils import get_user_by_email
 from app.user.utils import get_user_by_phone_number
@@ -36,5 +39,10 @@ def signup(**kwargs):
         password=kwargs['password'],
         email=kwargs['email'],
         phone_number=kwargs.get('phone_number', None))
+
+    administrator_role = RoleRepository.get_by_name('administrator')
+
+    UserRoleRepository.create(
+        UserRole(user_account_id=new_user.id, role_id=administrator_role.id))
 
     return new_organization, new_user

@@ -22,7 +22,8 @@ class UserAccount(BaseModel):
     email_confirmed = db.Column(db.Boolean, server_default='f')
     normalized_email = db.Column(db.String(128), unique=True)
     phone_number = db.Column(db.String(24), unique=True, nullable=True)
-    phone_number_confirmed = db.Column(db.Boolean, nullable=True)
+    phone_number_confirmed = db.Column(
+        db.Boolean, nullable=True, server_default='f')
     organization_id = db.Column(UUID, db.ForeignKey('organization.id'))
 
     def __repr__(self):
