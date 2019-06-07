@@ -29,7 +29,7 @@ jobs:
       - run:
           name: PostgreSQL Client
           command: |
-            sudo apt install postgresql-client
+            sudo apt update && sudo apt install postgresql-client
       - run:
           name: Waiting for PostgreSQL to start
           command: |

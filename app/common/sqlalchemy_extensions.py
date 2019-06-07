@@ -19,6 +19,10 @@ class utcnow(expression.FunctionElement):
     type = DateTime()
 
 
+class updateutcnow(expression.FunctionElement):
+    type = DateTime()
+
+
 @compiles(utcnow, 'postgresql')
 def pg_utcnow(element, compiler, **kw):
     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
