@@ -12,7 +12,8 @@ def test_update(session):
     update_fields = ('name',)
 
     # Act
-    result = RoleRepository.update(test_model_id, update_fields, name='Admin User')
+    result = RoleRepository.update(
+        test_model_id, update_fields, name='Admin User')
 
     # Assert
     assert isinstance(result, Role)
@@ -44,7 +45,6 @@ def test_get_by_name(session):
     normalized_role_name = 'super-user'
     RoleRepository.create(
         Role(name=role_name, normalized_name=normalized_role_name))
-
 
     # Act
     result = RoleRepository.get_by_name(role_name)
