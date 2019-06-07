@@ -22,4 +22,8 @@ class UserRole(BaseModel):
     user = relationship('UserAccount')
     role = relationship('Role')
 
-    __table_args__ = (UniqueConstraint('user_account_id', 'role_id', name='ux_useraccountid_roleid'),)
+    __table_args__ = (
+        UniqueConstraint(
+            'user_account_id',
+            'role_id',
+            name='ux_useraccountid_roleid'),)

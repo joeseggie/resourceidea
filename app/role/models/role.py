@@ -1,7 +1,3 @@
-from sqlalchemy import UniqueConstraint
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import relationship
-
 from app.common.models import BaseModel
 from database import db
 

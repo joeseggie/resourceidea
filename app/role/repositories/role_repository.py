@@ -30,7 +30,10 @@ class RoleRepository(BaseRepository):
         return '-'.join(re.split(r'\W', name.lower()))
 
     @classmethod
-    def update(cls, model_id: UUID, update_fields: Union[List, Tuple], **kwargs) -> model_class:
+    def update(cls,
+               model_id: UUID,
+               update_fields: Union[List, Tuple],
+               **kwargs) -> model_class:
         """
         Update role model.
 
