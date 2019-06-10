@@ -6,6 +6,18 @@ from .models import UserAccount
 from .repositories import UserRepository
 
 
+def _normalize_email(email: str) -> str:
+    """Normalize email.
+
+    Arguments:
+        email {str} -- Email to normalize.
+
+    Returns:
+        str -- Normalized email.
+    """
+    return email.upper()
+
+
 def get_all_users(**kwargs) -> List[UserAccount]:
     """
     Get a list of user accounts.
@@ -27,6 +39,7 @@ def create_user(**kwargs) -> UserAccount:
     new_user_account.username = kwargs['username']
     new_user_account.password = kwargs['password']
     new_user_account.email = kwargs['email']
+    new_user_account.normalized_email = _normalize_email(kwargs['email'])
     new_user_account.organization_id = kwargs['organization_id']
     new_user_account.phone_number = kwargs.get('phone_number', None)
 
@@ -46,7 +59,7 @@ def get_user(user_id: UUID) -> UserAccount:
     return UserRepository.get_one_by_id(model_id=user_id)
 
 
-def get_user_by_username(username: str, **kwargs) -> UserAccount:
+def username_exists(username: str) -> bool:
     """
     Get a user by username
 
@@ -56,40 +69,36 @@ def get_user_by_username(username: str, **kwargs) -> UserAccount:
     Returns:
         UserAccount: User account whose username is supplied.
     """
-    filter_field = {'username': username}
-    return UserRepository.get_one_by_field(**filter_field)
+    user_account = UserRepository.get_one_by_field(username=username)
+    return True if user_account else False
 
 
-def get_user_by_email(email: str, **kwargs) -> UserAccount:
+def email_exists(email: str) -> bool:
     """
-    Get a user by email
+    Check if email exists.
 
     Args:
         email {str}: User's email.
 
     Returns:
-        UserAccount: User account whose email is supplied.
+        bool: True if the email exists. Otherwise, False.
     """
-    filter_field = {'email': email}
-    return UserRepository.get_one_by_field(**filter_field)
+    user_account = UserRepository.get_one_by_field(email=email)
+    return True if user_account else False
 
 
-def get_user_by_phone_number(**kwargs) -> UserAccount:
+def phone_number_exists(phone_number: str) -> bool:
     """
-    Get a user by phone_number
+    Check if phone number exists.
 
     Args:
         phone_number {str}: User's phone number
 
     Returns:
-        UserAccount: User account whose email is supplied.
+        bool: True if the phone number exists. Otherwise, False.
     """
-    if 'phone_number' in kwargs:
-        phone_number = kwargs.get('phone_number', None)
-        if phone_number:
-            filter_field = {'phone_number': phone_number}
-            return UserRepository.get_one_by_field(**filter_field)
-    return
+    user_account = UserRepository.get_one_by_field(phone_number=phone_number)
+    return True if user_account else False
 
 
 def update_user(user_id: UUID, **kwargs) -> UserAccount:
