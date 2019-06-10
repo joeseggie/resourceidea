@@ -3,15 +3,14 @@ Testing sending email.
 """
 from app.messenger.utils import send_email
 
-
 def test_send_mail():
     # Arrange
-    subject = "Amazon SES Test (SDK for Python)"
+    SUBJECT = "Amazon SES Test (SDK for Python)"
 
-    body_text = ("Amazon SES Test (Python)\r\n"
+    BODY_TEXT = ("Amazon SES Test (Python)\r\n"
                  "This email was sent with Amazon SES using the "
                  "AWS SDK for Python (Boto).")
-    body_html = """<html>
+    BODY_HTML = """<html>
     <head></head>
     <body>
       <h1>Amazon SES Test (SDK for Python)</h1>
@@ -22,10 +21,11 @@ def test_send_mail():
     </body>
     </html>
             """
-    recipients = ['joseph.serunjogi@andela.com', 'joeseggie@gmail.com', ]
+    recipients = ['joseph.serunjogi@andela.com','joeseggie@gmail.com',]
+
 
     # Act
-    result = send_email(recipients, subject, body_text, body_html)
+    result = send_email(recipients, SUBJECT, BODY_TEXT, BODY_HTML)
 
     # Assert
     assert isinstance(result, dict)
