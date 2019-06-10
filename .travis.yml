@@ -7,10 +7,6 @@ install:
 # environment
 env:
   FLASK_ENV=testing
-  DEV_SQLALCHEMY_DATABASE_URI=postgresql://postgres@localhost/resourceidea_test?sslmode=disable
-  SECRET_KEY=kmJnJ8NQDOjn+FrLappG9A4EfL
-  AWS_SES_SENDER=support@resourceidea.com
-  AWS_REGION=us-west-2
 services:
   - postgresql
 before_script:
