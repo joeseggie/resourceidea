@@ -5,16 +5,8 @@ jobs:
       - image: circleci/python:3.7.2-node-browsers
         environment:
           FLASK_ENV: testing
-          DEV_SQLALCHEMY_DATABASE_URI: $DEV_SQLALCHEMY_DATABASE_URI
-          SECRET_KEY: $SECRET_KEY
-          AWS_SES_SENDER: $AWS_SES_SENDER
-          AWS_REGION: $AWS_REGION
-          AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-          AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       - image: circleci/postgres:9.6.12
         environment:
-          POSTGRES_USER: riuser
-          POSTGRES_DB: resourceidea_test
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
@@ -47,7 +39,7 @@ jobs:
       - run:
           name: PostgreSQL Extensions
           command: |
-            sudo psql -U riuser -h localhost -p 5432 -c 'create extension if not exists "uuid-ossp";' resourceidea_test
+            sudo psql -U $POSTGRES_USER -h localhost -p 5432 -c 'create extension if not exists "uuid-ossp";' $POSTGRES_DB
       - run:
           name: Run Tests
           command: |
