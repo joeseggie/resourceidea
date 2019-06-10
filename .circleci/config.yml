@@ -7,6 +7,10 @@ jobs:
           FLASK_ENV: testing
           DEV_SQLALCHEMY_DATABASE_URI: postgresql://riuser@localhost/resourceidea_test?sslmode=disable
           SECRET_KEY: kmJnJ8NQDOjn+FrLappG9A4EfL
+          AWS_SES_SENDER: support@resourceidea.com
+          AWS_REGION: us-west-2
+          AWS_ACCESS_KEY_ID: AKIARXPW47W7V2B7KEJZ
+          AWS_SECRET_ACCESS_KEY: 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
       - image: circleci/postgres:9.6.12
         environment:
           POSTGRES_USER: riuser
