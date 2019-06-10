@@ -1,3 +1,6 @@
+from faker import Faker
+from faker.providers import person
+from faker.providers import profile
 import pytest
 
 from app import create_app
@@ -80,3 +83,17 @@ def session(db, request):
 
     request.addfinalizer(teardown)
     return session
+
+
+@pytest.fixture
+def fake_person():
+    fake_person = Faker()
+    fake_person.add_provider(person)
+    return fake_person
+
+
+@pytest.fixture
+def fake_profile():
+    fake_profile = Faker()
+    fake_profile.add_provider(profile)
+    return fake_profile

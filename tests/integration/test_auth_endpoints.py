@@ -3,15 +3,17 @@ from uuid import UUID
 from flask import json
 
 
-def test_signup(app, session):
+def test_signup(app, session, fake_person, fake_profile):
     # Arrange
     client = app.test_client()
     request_body = {
-        'organization': 'Test xx organization',
-        'username': 'test123',
+        'organization': fake_profile.profile()['company'],
+        'username': fake_profile.profile()['username'],
         'password': 'strong_password',
         'confirm_password': 'strong_password',
-        'email': 'joeseggie@gmail.com'
+        'email': fake_profile.profile()['mail'],
+        'first_name': fake_person.first_name(),
+        'last_name': fake_person.last_name()
     }
 
     # Act
@@ -24,14 +26,11 @@ def test_signup(app, session):
     assert output['status'] == 'OK'
     assert 'data' in output
     assert isinstance(output['data'], dict)
-    assert output['data']['organization'] == 'Test xx organization'
-    assert output['data']['username'] == 'test123'
-    assert output['data']['organization_slug'] == 'test-xx-organization'
     assert isinstance(UUID(output['data']['user_id']), UUID)
     assert isinstance(UUID(output['data']['organization_id']), UUID)
 
 
-def test_signup_organization_exists(app, session):
+def test_signup_organization_exists(app, session, fake_person, fake_profile):
     # Arrange
     client = app.test_client()
     request_body = {
@@ -39,7 +38,9 @@ def test_signup_organization_exists(app, session):
         'username': 'test123',
         'password': 'strong_password',
         'confirm_password': 'strong_password',
-        'email': 'joeseggie@gmail.com'
+        'email': 'joeseggie@gmail.com',
+        'first_name': fake_person.first_name(),
+        'last_name': fake_person.last_name()
     }
 
     # Act
@@ -52,7 +53,7 @@ def test_signup_organization_exists(app, session):
     assert output['status'] == 'Organization name already exists'
 
 
-def test_user_signup_email_exists(app, session):
+def test_user_signup_email_exists(app, session, fake_person):
     # Arrange
     client = app.test_client()
     request_body = {
@@ -60,7 +61,9 @@ def test_user_signup_email_exists(app, session):
         'username': 'test123',
         'password': 'strong_password',
         'confirm_password': 'strong_password',
-        'email': 'mail@example.com'
+        'email': 'mail@example.com',
+        'first_name': fake_person.first_name(),
+        'last_name': fake_person.last_name()
     }
 
     # Act
@@ -73,7 +76,8 @@ def test_user_signup_email_exists(app, session):
     assert output['status'] == 'Email already exists'
 
 
-def test_user_signup_phone_number_exists(app, session):
+def test_user_signup_phone_number_exists(
+        app,  session, fake_person):
     # Arrange
     client = app.test_client()
     request_body = {
@@ -82,7 +86,9 @@ def test_user_signup_phone_number_exists(app, session):
         'password': 'strong_password',
         'confirm_password': 'strong_password',
         'phone_number': '000-0000-111',
-        'email': 'e1.mail@example.com'
+        'email': 'e1.mail@example.com',
+        'first_name': fake_person.first_name(),
+        'last_name': fake_person.last_name()
     }
 
     # Act
@@ -95,7 +101,7 @@ def test_user_signup_phone_number_exists(app, session):
     assert output['status'] == 'Phone number already exists'
 
 
-def test_user_signup_username_exists(app, session):
+def test_user_signup_username_exists(app, session, fake_person):
     # Arrange
     client = app.test_client()
     request_body = {
@@ -104,7 +110,9 @@ def test_user_signup_username_exists(app, session):
         'password': 'strong_password',
         'confirm_password': 'strong_password',
         'phone_number': '000-0010-111',
-        'email': 'e1.mail@example.com'
+        'email': 'e1.mail@example.com',
+        'first_name': fake_person.first_name(),
+        'last_name': fake_person.last_name()
     }
 
     # Act

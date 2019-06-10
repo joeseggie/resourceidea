@@ -51,7 +51,21 @@ def get_organization_by_name(name: str, **kwargs) -> Organization:
         Organization: Organization.
     """
     kwargs['name_slug'] = get_name_slug(name)
-    return OrganizationRepository.get_all_by_name(**kwargs)
+    return OrganizationRepository.get_one_by_name(**kwargs)
+
+
+def organization_name_exists(organization_name: str) -> bool:
+    """
+    Check if the organization name exists.
+
+    Args:
+        organization_name {str}: Organization name.
+
+    Returns:
+        bool: True if the name exists. Otherwise, False.
+    """
+    organization = get_organization_by_name(organization_name)
+    return True if organization else False
 
 
 def update_organization(model_id: UUID, **kwargs) -> Organization:
