@@ -24,7 +24,7 @@ def signup(**kwargs):
         raise ValueError('Email already exists')
 
     if 'phone_number' in kwargs\
-        and phone_number_exists(kwargs['phone_number']):
+            and phone_number_exists(kwargs['phone_number']):
         raise ValueError('Phone number already exists')
 
     if username_exists(kwargs['username']):
