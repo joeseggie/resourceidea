@@ -22,18 +22,18 @@ def send_email(
 
         message {str}: Email body.
     """
-    sender = os.environ.get('AWS_SES_SENDER')
+    SENDER = os.environ.get('AWS_SES_SENDER')
     # CONFIGURATION_SET = 'ConfigSet'
-    aws_region = os.environ.get('AWS_REGION')
-    aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
-    aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_REGION = os.environ.get('AWS_REGION')
+    AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
     CHARSET = "UTF-8"
 
     client = boto3.client(
         'ses',
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        region_name=aws_region)
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        region_name=AWS_REGION)
 
     try:
         response = client.send_email(
@@ -56,7 +56,7 @@ def send_email(
                     'Data': subject
                 },
             },
-            Source=f'ResourceIdea <{sender}>',
+            Source=f'ResourceIdea <{SENDER}>',
             # ConfigurationSetName=CONFIGURATION_SET,
         )
     except ClientError as error:
