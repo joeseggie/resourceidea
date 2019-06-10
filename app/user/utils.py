@@ -1,5 +1,3 @@
-import re
-
 from flask import abort
 from typing import List
 from uuid import UUID
