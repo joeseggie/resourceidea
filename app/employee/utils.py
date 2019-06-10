@@ -2,6 +2,7 @@
 Employee utils
 """
 import random
+from string import digits
 
 from app.employee.repository import EmployeeRepository
 
@@ -13,7 +14,7 @@ def generate_file_number() -> str:
     Returns:
         str - Employee file number.
     """
-    return f'EF{random.randint(10000, 999999)}'
+    return f'EF{"".join(random.choice(digits) for i in range(6))}'
 
 
 def file_number_exists(file_number: str) -> bool:
