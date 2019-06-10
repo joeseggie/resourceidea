@@ -2,7 +2,6 @@
 Employee utils
 """
 from random import SystemRandom
-from string import digits
 
 from app.employee.repository import EmployeeRepository
 
