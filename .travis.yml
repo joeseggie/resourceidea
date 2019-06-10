@@ -11,8 +11,6 @@ env:
   SECRET_KEY=kmJnJ8NQDOjn+FrLappG9A4EfL
   AWS_SES_SENDER=support@resourceidea.com
   AWS_REGION=us-west-2
-  AWS_ACCESS_KEY_ID= AKIARXPW47W7V2B7KEJZ
-  AWS_SECRET_ACCESS_KEY= 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
 services:
   - postgresql
 before_script:
