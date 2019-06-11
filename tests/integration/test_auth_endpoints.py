@@ -7,13 +7,13 @@ def test_signup(app, session, fake_person, fake_profile):
     # Arrange
     client = app.test_client()
     request_body = {
-        'organization': fake_profile.profile()['company'],
-        'username': fake_profile.profile()['username'],
-        'password': 'strong_password',
-        'confirm_password': 'strong_password',
-        'email': fake_profile.profile()['mail'],
-        'first_name': fake_person.first_name(),
-        'last_name': fake_person.last_name()
+        "organization": fake_profile.profile()['company'],
+        "username": fake_profile.profile()['username'],
+        "password": "strong_password",
+        "confirm_password": "strong_password",
+        "email": "joeseggie@gmail.com",
+        "first_name": fake_person.first_name(),
+        "last_name": fake_person.last_name()
     }
 
     # Act
