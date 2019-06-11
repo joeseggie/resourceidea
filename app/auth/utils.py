@@ -4,6 +4,7 @@ from app.employee.utils import file_number_exists
 from app.employee.utils import generate_file_number
 from app.organization.utils import create_organization
 from app.organization.utils import organization_name_exists
+from app.messenger.utils import send_email
 from app.role.models.user_role import UserRole
 from app.role.repositories.role_repository import RoleRepository
 from app.role.repositories.user_role_repository import UserRoleRepository
@@ -58,5 +59,14 @@ def signup(**kwargs):
         organization_id=new_organization.id,
         other_names=kwargs.get('other_names', None))
     EmployeeRepository.create(new_employee)
+
+    recipients = [kwargs['email'], ]
+    subject = f'Welcome {kwargs["first_name"]} {kwargs["last_name"]}'
+    body_text = f'Dear {kwargs["first_name"]} {kwargs["last_name"]},\n'\
+                'Thank you for joining us.'
+    body_html = f'Dear {kwargs["first_name"]} {kwargs["last_name"]},\n'\
+                'Thank you for joining us.'
+
+    send_email(recipients, subject, body_text, body_html)
 
     return new_organization, new_user

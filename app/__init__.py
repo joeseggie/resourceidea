@@ -1,6 +1,6 @@
-'''
+"""
 Application initialization.
-'''
+"""
 from flask import Flask
 from flask_migrate import Migrate
 
@@ -24,6 +24,15 @@ migrate = Migrate()
 
 
 def create_app(config_name='default'):
+    """
+    App creation factory.
+
+    Args:
+        config_name: Environment configuration.
+
+    Returns:
+        Flask app for the environment configured.
+    """
     app = Flask('resourceidea')
     app.config.from_object(CONFIG_ENV[config_name])
     db.init_app(app)

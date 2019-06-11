@@ -28,4 +28,5 @@ def test_send_mail():
     result = send_email(recipients, subject, body_text, body_html)
 
     # Assert
-    assert isinstance(result, dict)
+    if not isinstance(result, dict):
+        raise AssertionError()
