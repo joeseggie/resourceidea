@@ -28,8 +28,7 @@ class OrganizationRepository(BaseRepository):
         return query.to_list()
 
     @classmethod
-    def get_all_by_name(cls, name_slug: str, **kwargs) -> model_class:
-        query = cls.model_class.query\
-            .filter(cls.model_class.name_slug == name_slug)
-
-        return query.to_list()
+    def get_one_by_name(cls, name_slug: str, **kwargs) -> model_class:
+        return cls.model_class.query\
+            .filter(cls.model_class.name_slug == name_slug)\
+            .first()
