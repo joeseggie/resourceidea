@@ -1,3 +1,6 @@
+"""
+Tests suite configuration.
+"""
 from faker import Faker
 from faker.providers import person
 from faker.providers import profile
@@ -19,6 +22,9 @@ def app(request):
     ctx.push()
 
     def teardown():
+        """
+        Clean up test session.
+        """
         ctx.pop()
 
     request.addfinalizer(teardown)
@@ -26,7 +32,10 @@ def app(request):
 
 
 @pytest.fixture(scope='session')
-def db(app, request):
+def db(app):
+    """
+    Setup database resource for the test suite.
+    """
     _db.create_all()
     return _db
 
@@ -77,6 +86,7 @@ def session(db, request):
     db.session.commit()
 
     def teardown():
+        """Clean up test suite."""
         transaction.rollback()
         connection.close()
         session.remove()
@@ -87,6 +97,7 @@ def session(db, request):
 
 @pytest.fixture
 def fake_person():
+    """Create a fake person for the test suite."""
     fake_person = Faker()
     fake_person.add_provider(person)
     return fake_person
@@ -94,6 +105,7 @@ def fake_person():
 
 @pytest.fixture
 def fake_profile():
+    """Create a fake user profile for the test suite."""
     fake_profile = Faker()
     fake_profile.add_provider(profile)
     return fake_profile
