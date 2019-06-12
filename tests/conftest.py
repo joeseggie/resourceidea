@@ -2,6 +2,7 @@
 Tests suite configuration.
 """
 from faker import Faker
+from faker.providers import misc
 from faker.providers import person
 from faker.providers import profile
 import pytest
@@ -109,3 +110,11 @@ def fake_profile():
     fake_profile = Faker()
     fake_profile.add_provider(profile)
     return fake_profile
+
+
+@pytest.fixture
+def fake_misc():
+    """Create a misc faker"""
+    fake_misc = Faker()
+    fake_misc.add_provider(misc)
+    return fake_misc
