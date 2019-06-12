@@ -1,3 +1,9 @@
+"""
+Auth utils.
+"""
+from flask import render_template
+
+from app.common.utils import generate_token
 from app.employee.models import Employee
 from app.employee.repository import EmployeeRepository
 from app.employee.utils import file_number_exists
@@ -61,11 +67,18 @@ def signup(**kwargs):
     EmployeeRepository.create(new_employee)
 
     recipients = [kwargs['email'], ]
-    subject = f'Welcome {kwargs["first_name"]} {kwargs["last_name"]}'
-    body_text = f'Dear {kwargs["first_name"]} {kwargs["last_name"]},\n'\
-                'Thank you for joining us.'
-    body_html = f'Dear {kwargs["first_name"]} {kwargs["last_name"]},\n'\
-                'Thank you for joining us.'
+    subject = f'Welcome to ResourceIdea'
+    token = generate_token(user_id=new_user.id, email=new_user.email)
+    body_html = render_template(
+        'email/welcome.html',
+        confirmation_token=token,
+        first_name=kwargs['first_name'],
+        last_name=kwargs['last_name'])
+    body_text = render_template(
+        'email/welcome.txt',
+        confirmation_token=token,
+        first_name=kwargs['first_name'],
+        last_name=kwargs['last_name'])
 
     send_email(recipients, subject, body_text, body_html)
 

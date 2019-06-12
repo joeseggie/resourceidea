@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 
 from database import db
 from app.auth.endpoints import auth_bp
+from app.auth.views import auth_views_bp
 from app.role.endpoints import role_bp
 from app.organization.endpoints import organization_bp
 from app.user.endpoints import user_bp
@@ -18,6 +19,7 @@ CONFIG_ENV = {
     'testing': 'config.testing.TestingConfig',
 }
 API_URL_PREFIX = '/api/v0.1'
+URL_PREFIX = '/signup'
 
 
 migrate = Migrate()
@@ -33,7 +35,7 @@ def create_app(config_name='default'):
     Returns:
         Flask app for the environment configured.
     """
-    app = Flask('resourceidea')
+    app = Flask(__name__, template_folder='templates')
     app.config.from_object(CONFIG_ENV[config_name])
     db.init_app(app)
     migrate.init_app(app, db)
@@ -41,5 +43,5 @@ def create_app(config_name='default'):
     app.register_blueprint(user_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(auth_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(role_bp, url_prefix=API_URL_PREFIX)
-
+    app.register_blueprint(auth_views_bp, url_prefix=URL_PREFIX)
     return app
