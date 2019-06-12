@@ -69,7 +69,7 @@ class UserRepository(BaseRepository):
         Returns:
             UserAccount: User account.
         """
-        update_fields = ('phone_number_confirmed')
+        update_fields = ('phone_number_confirmed',)
         return cls.update_by_id(model_id, update_fields, **kwargs)
 
     @classmethod
@@ -84,7 +84,7 @@ class UserRepository(BaseRepository):
         Returns:
             UserAccount: User account.
         """
-        update_fields = ('email_confirmed')
+        update_fields = ('email_confirmed',)
         return cls.update_by_id(model_id, update_fields, **kwargs)
 
     @classmethod
