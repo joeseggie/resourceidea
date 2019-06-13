@@ -10,9 +10,8 @@ from database import db
 class Employee(BaseModel):
     """Employee model.
 
-    Parameters
-    ----------
-    db : Model
+    Args:
+        BaseModel: Base model.
     """
     __tablename__ = 'employee'
 
