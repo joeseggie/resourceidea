@@ -2,12 +2,14 @@
 Tests suite configuration.
 """
 from faker import Faker
+from faker.providers import lorem
 from faker.providers import misc
 from faker.providers import person
 from faker.providers import profile
 import pytest
 
 from app import create_app
+from app.client_industry.models import ClientIndustry
 from app.organization.models import Organization
 from app.role.models.role import Role
 from app.role.repositories.role_repository import RoleRepository
@@ -52,6 +54,10 @@ def session(db, request):
 
     db.session = session
 
+    client_industry_1 = ClientIndustry(
+        name='Existing name',
+        name_slug='existing-name')
+
     company_1 = Organization(
         name='Organization 1',
         name_slug='organization-1',
@@ -84,6 +90,7 @@ def session(db, request):
     db.session.add(company_2)
     db.session.add(user_1)
     db.session.add(user_2)
+    db.session.add(client_industry_1)
     db.session.commit()
 
     def teardown():
@@ -118,3 +125,11 @@ def fake_misc():
     fake_misc = Faker()
     fake_misc.add_provider(misc)
     return fake_misc
+
+
+@pytest.fixture
+def fake_lorem():
+    """Create a lorem faker"""
+    fake_lorem = Faker()
+    fake_lorem.add_provider(lorem)
+    return fake_lorem

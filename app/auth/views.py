@@ -9,6 +9,7 @@ import jwt
 
 from app.common.utils import generate_hash
 from app.user.repositories import UserRepository
+from app.user.utils import confirm_email
 
 
 auth_views_bp = Blueprint('auth_view', __name__)
@@ -27,7 +28,7 @@ def email_confirmation(token: str):
         token_hash = generate_hash(email=user.email, user_id=user.id)
         if token_hash == token_data['hash']:
             confirm = {'email_confirmed': True}
-            result = UserRepository.confirm_email(user.id, **confirm)
+            result = confirm_email(user.id, **confirm)
             if result.email_confirmed:
                 return render_template('confirmed_email.html')
 

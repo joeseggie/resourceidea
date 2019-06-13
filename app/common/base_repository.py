@@ -6,6 +6,7 @@ from typing import Union
 from uuid import UUID
 
 from sqlalchemy.orm import Query
+from sqlalchemy.exc import IntegrityError
 from werkzeug.exceptions import NotFound
 
 from database import db
@@ -38,9 +39,26 @@ class BaseRepository(ABC):
 
     @classmethod
     def create(cls, model: db.Model) -> model_class:
-        db.session.add(model)
-        db.session.commit()
-        return model
+        """
+        Create new client industry.
+
+        Args:
+            model: Client industry to be saved to the database.
+
+        Returns:
+            Newly created client industry.
+
+        Raises:
+            ValueError: An error occurred while processing the data supplied
+            for a new client industry.
+        """
+        try:
+            db.session.add(model)
+            db.session.commit()
+        except IntegrityError:
+            raise ValueError('Invalid data supplied')
+        else:
+            return model
 
     @classmethod
     def delete_by_id(cls, model_id: UUID) -> int:

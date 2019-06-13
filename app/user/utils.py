@@ -1,4 +1,3 @@
-from flask import abort
 from typing import List
 from uuid import UUID
 
@@ -132,12 +131,7 @@ def confirm_email(user_id: UUID, email: str):
         user_id {UUID}: User account Id.
         email {str}: Email to be confirmed.
     """
-    user_account = UserRepository.get_one_by_id(model_id=user_id)
-    if not user_account:
-        abort(404, 'User account does not exist')
-    if email.lower() != user_account.email.lower():
-        abort(400, 'Email confirmation failed')
-    UserRepository
+    return UserRepository.confirm_email(user_id, email=email)
 
 
 def confirm_phone_number(user_id: UUID, phone_number: str):
