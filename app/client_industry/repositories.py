@@ -1,5 +1,6 @@
 """Client Industry repository"""
 import re
+from typing import Tuple
 
 from app.client_industry.models import ClientIndustry
 from app.common.base_repository import BaseRepository
@@ -33,6 +34,40 @@ class ClientIndustryRepository(BaseRepository):
 
         Returns:
             ClientIndustry: Client industry that has been added.
+
+        Raises:
+            ValueError if client industry name already exists.
         """
         model.name_slug = cls._name_slug(model.name)
         return cls.create(model)
+
+    @classmethod
+    def update(cls,
+               client_industry_id: str,
+               update_fields: Tuple,
+               **updates) -> model_class:
+        """
+        Update client industry.
+
+        Args:
+            client_industry_id (str): Client industry ID.
+
+            update_fields (List, Tuple): Fields to be updated.
+
+            updates: Data to update.
+
+        Returns:
+            Updated client industry.
+
+        Raises:
+            ValueError if client industry update name already exists.
+        """
+        if 'name' in updates:
+            updates['name_slug'] = cls._name_slug(updates['name'])
+            if 'name_slug' not in update_fields:
+                update_fields = update_fields + ('name_slug', )
+
+        return cls.update_by_id(
+            model_id=client_industry_id,
+            fields_for_update=update_fields,
+            **updates)
