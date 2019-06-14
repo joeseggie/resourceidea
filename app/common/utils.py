@@ -1,5 +1,6 @@
 import hashlib
 import os
+import re
 from uuid import uuid4
 
 import jwt
@@ -38,3 +39,16 @@ def generate_hash(email: str, user_id: UUID) -> str:
     sha256 = hashlib.sha256()
     sha256.update(raw_input.encode('utf-8'))
     return sha256.hexdigest()
+
+
+def name_slug(name: str) -> str:
+    """
+    Creates a slug from the name.
+
+    Args:
+        name (str): Name from which to create the slug.
+
+    Returns:
+        Name slug as a string.
+    """
+    return '-'.join(re.split(r'\W', name.lower()))
