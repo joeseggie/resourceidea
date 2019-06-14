@@ -59,3 +59,19 @@ def test_update_raises_value_error_exception(session, fake_lorem):
     with pytest.raises(ValueError):
         ClientIndustryRepository\
             .update(test_model.id, update_fields, **updates)
+
+
+def test_get_one_by_id(session, fake_lorem):
+    """Test get_one_by_id"""
+
+    # Arrange
+    fake_model = ClientIndustryRepository.add(
+        ClientIndustry(name=fake_lorem.word()))
+
+    # Act
+    result = ClientIndustryRepository.get_one_by_id(model_id=fake_model.id)
+
+    # Assert
+    assert result is not None
+    assert isinstance(result, ClientIndustry)
+    assert result == fake_model

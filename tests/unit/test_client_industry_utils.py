@@ -7,6 +7,7 @@ from werkzeug.exceptions import NotFound
 from app.client_industry.models import ClientIndustry
 from app.client_industry.utils import create_client_industry
 from app.client_industry.utils import update_client_industry
+from app.client_industry.utils import get_client_industry
 
 
 def test_update(session, fake_lorem):
@@ -53,3 +54,18 @@ def test_update_raises_value_error_exception(session, fake_lorem):
     # Assert
     with pytest.raises(ValueError):
         update_client_industry(test_model.id, **updates)
+
+
+def test_get_client_industry(session, fake_lorem):
+    """Test querying for a client industry."""
+
+    # Arrange
+    fake_model = create_client_industry(name=fake_lorem.word())
+
+    # Act
+    result = get_client_industry(fake_model.id)
+
+    # Assert
+    assert result is not None
+    assert isinstance(result, ClientIndustry)
+    assert result == fake_model

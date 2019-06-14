@@ -40,3 +40,16 @@ def update_client_industry(
         client_industry_id=client_industry_id,
         update_fields=update_fields,
         **updates)
+
+
+def get_client_industry(client_industry_id: str) -> ClientIndustry:
+    """
+    Get client industry.
+
+    Args:
+        client_industry_id (str): Client industry ID.
+
+    Returns:
+        Client industry ID.
+    """
+    return ClientIndustryRepository.get_one_by_id(client_industry_id)
