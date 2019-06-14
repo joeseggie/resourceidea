@@ -8,7 +8,7 @@ class JobPosition(db.Model):
 
     Parameters
     ----------
-    db : Model
+    db.Model : Model
     """
     __tablename__ = 'job_position'
 
