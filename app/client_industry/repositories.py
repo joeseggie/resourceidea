@@ -71,3 +71,13 @@ class ClientIndustryRepository(BaseRepository):
             model_id=client_industry_id,
             fields_for_update=update_fields,
             **updates)
+
+    @classmethod
+    def list_client_industries(cls) -> list:
+        """
+        List client industries.
+
+        Returns:
+            List of client industries.
+        """
+        return cls.get_all()

@@ -8,6 +8,7 @@ from app.client_industry.models import ClientIndustry
 from app.client_industry.utils import create_client_industry
 from app.client_industry.utils import update_client_industry
 from app.client_industry.utils import get_client_industry
+from app.client_industry.utils import list_client_industries
 
 
 def test_update(session, fake_lorem):
@@ -69,3 +70,13 @@ def test_get_client_industry(session, fake_lorem):
     assert result is not None
     assert isinstance(result, ClientIndustry)
     assert result == fake_model
+
+
+def test_list_client_industries(session):
+    """Test listing client industries."""
+
+    # Act
+    result = list_client_industries()
+
+    # Assert
+    assert isinstance(result, list)
