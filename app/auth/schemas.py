@@ -16,6 +16,10 @@ class SignupInputSchema(Schema):
     confirm_password = fields.String(required=True)
     email = fields.Email(required=True)
     phone_number = fields.String()
+    first_name = fields.String(required=True)
+    last_name = fields.String(required=True)
+    other_names = fields.String()
+    file_number = fields.String()
 
     @validates_schema
     def validate_password(self, data):

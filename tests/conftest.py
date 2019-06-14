@@ -1,6 +1,16 @@
+"""
+Tests suite configuration.
+"""
+from faker import Faker
+from faker.providers import lorem
+from faker.providers import misc
+from faker.providers import person
+from faker.providers import profile
 import pytest
 
 from app import create_app
+from app.client.models import Client
+from app.client_industry.models import ClientIndustry
 from app.organization.models import Organization
 from app.role.models.role import Role
 from app.role.repositories.role_repository import RoleRepository
@@ -16,6 +26,9 @@ def app(request):
     ctx.push()
 
     def teardown():
+        """
+        Clean up test session.
+        """
         ctx.pop()
 
     request.addfinalizer(teardown)
@@ -23,7 +36,10 @@ def app(request):
 
 
 @pytest.fixture(scope='session')
-def db(app, request):
+def db(app):
+    """
+    Setup database resource for the test suite.
+    """
     _db.create_all()
     return _db
 
@@ -38,6 +54,10 @@ def session(db, request):
     session = db.create_scoped_session(options=options)
 
     db.session = session
+
+    client_industry_1 = ClientIndustry(
+        name='Existing name',
+        name_slug='existing-name')
 
     company_1 = Organization(
         name='Organization 1',
@@ -62,6 +82,13 @@ def session(db, request):
         phone_number='000-2222-111',
         organization_id=company_2.id)
 
+    client_1 = Client(
+        name='Existing client',
+        name_slug='existing-client',
+        address='Address',
+        organization_id=company_2.id,
+        client_industry_id=client_industry_1.id)
+
     administrator_role = RoleRepository.get_by_name('administrator')
     if not administrator_role:
         role_1 = Role(name='Administrator', normalized_name='administrator')
@@ -71,12 +98,47 @@ def session(db, request):
     db.session.add(company_2)
     db.session.add(user_1)
     db.session.add(user_2)
+    db.session.add(client_industry_1)
+    db.session.add(client_1)
     db.session.commit()
 
     def teardown():
+        """Clean up test suite."""
         transaction.rollback()
         connection.close()
         session.remove()
 
     request.addfinalizer(teardown)
     return session
+
+
+@pytest.fixture
+def fake_person():
+    """Create a fake person for the test suite."""
+    fake_person = Faker()
+    fake_person.add_provider(person)
+    return fake_person
+
+
+@pytest.fixture
+def fake_profile():
+    """Create a fake user profile for the test suite."""
+    fake_profile = Faker()
+    fake_profile.add_provider(profile)
+    return fake_profile
+
+
+@pytest.fixture
+def fake_misc():
+    """Create a misc faker"""
+    fake_misc = Faker()
+    fake_misc.add_provider(misc)
+    return fake_misc
+
+
+@pytest.fixture
+def fake_lorem():
+    """Create a lorem faker"""
+    fake_lorem = Faker()
+    fake_lorem.add_provider(lorem)
+    return fake_lorem

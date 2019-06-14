@@ -1,0 +1,11 @@
+Dear {{ first_name }} {{ last_name }},
+
+Welcome to ResourceIdea, your perfect solution for planning and managing your team's resources.
+
+Please click on the following link to confirm your email to access the service:
+
+{{ url_for('auth_view.email_confirmation', token=confirmation_token, _external=True) }}
+
+Regards,
+
+The ResourceIdea team.
