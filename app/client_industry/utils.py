@@ -53,3 +53,13 @@ def get_client_industry(client_industry_id: str) -> ClientIndustry:
         Client industry ID.
     """
     return ClientIndustryRepository.get_one_by_id(client_industry_id)
+
+
+def list_client_industries() -> list:
+    """
+    List client industries.
+
+    Returns:
+        List of client industries.
+    """
+    return ClientIndustryRepository.list_client_industries()
