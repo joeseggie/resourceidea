@@ -88,7 +88,9 @@ def test_list_client_industries(session, fake_lorem):
     """Test list_client_industries"""
 
     # Arrange
-    fake_model = ClientIndustry(name=fake_lorem.word(), name_slug=fake_lorem.word())
+    fake_model = ClientIndustry(
+        name=fake_lorem.word(),
+        name_slug=fake_lorem.word())
     ClientIndustryRepository.create(fake_model)
 
     # Act
