@@ -18,14 +18,17 @@ class Client(BaseModel):
     __tablename__ = 'client'
 
     name = db.Column(db.String(256))
-    name_stub = db.Column(db.String(256))
-    address = db.Column(db.String(256))
+    name_slug = db.Column(db.String(256))
+    address = db.Column(db.String(256), nullable=True)
 
-    client_industry_id = db.Column(UUID, db.ForeignKey('client_industry.id'))
+    client_industry_id = db.Column(
+        UUID,
+        db.ForeignKey('client_industry.id'),
+        nullable=True)
     client_industry = relationship('ClientIndustry')
 
     organization_id = db.Column(UUID, db.ForeignKey('organization.id'))
-    organization = relationship('Company')
+    organization = relationship('Organization')
 
     def __repr__(self):
         return '<Client %s>' % self.name

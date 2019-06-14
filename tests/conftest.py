@@ -9,6 +9,7 @@ from faker.providers import profile
 import pytest
 
 from app import create_app
+from app.client.models import Client
 from app.client_industry.models import ClientIndustry
 from app.organization.models import Organization
 from app.role.models.role import Role
@@ -81,6 +82,13 @@ def session(db, request):
         phone_number='000-2222-111',
         organization_id=company_2.id)
 
+    client_1 = Client(
+        name='Existing client',
+        name_slug='existing-client',
+        address='Address',
+        organization_id=company_2.id,
+        client_industry_id=client_industry_1.id)
+
     administrator_role = RoleRepository.get_by_name('administrator')
     if not administrator_role:
         role_1 = Role(name='Administrator', normalized_name='administrator')
@@ -91,6 +99,7 @@ def session(db, request):
     db.session.add(user_1)
     db.session.add(user_2)
     db.session.add(client_industry_1)
+    db.session.add(client_1)
     db.session.commit()
 
     def teardown():
