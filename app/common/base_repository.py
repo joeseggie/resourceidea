@@ -1,5 +1,6 @@
 from abc import ABC
 from typing import Tuple
+from typing import List
 
 from uuid import UUID
 
@@ -123,3 +124,13 @@ class BaseRepository(ABC):
             return True
         else:
             raise NotFound('Model does not exist')
+
+    @classmethod
+    def get_all(cls) -> List[model_class]:
+        """
+        Get list
+
+        Returns:
+            List of model.
+        """
+        return cls.model_class.query.all()

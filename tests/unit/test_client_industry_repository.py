@@ -7,12 +7,19 @@ import pytest
 
 from app.client_industry.models import ClientIndustry
 from app.client_industry.repositories import ClientIndustryRepository
+from app.organization.utils import create_organization
 
 
-def test_create(session, fake_lorem):
+def test_create(session, fake_lorem, fake_profile):
     """Test creating a client industry."""
+
     # Arrange
-    test_model = ClientIndustry(name=fake_lorem.word())
+    fake_org = create_organization(
+        organization_name=fake_lorem.word(),
+        address=fake_profile.profile()['address'])
+    test_model = ClientIndustry(
+        name=fake_lorem.word(),
+        organization_id=fake_org.id)
 
     # Act
     result = ClientIndustryRepository.add(model=test_model)
@@ -75,3 +82,17 @@ def test_get_one_by_id(session, fake_lorem):
     assert result is not None
     assert isinstance(result, ClientIndustry)
     assert result == fake_model
+
+
+def test_list_client_industries(session, fake_lorem):
+    """Test list_client_industries"""
+
+    # Arrange
+    fake_model = ClientIndustry(name=fake_lorem.word(), name_slug=fake_lorem.word())
+    ClientIndustryRepository.create(fake_model)
+
+    # Act
+    result = ClientIndustryRepository.list_client_industries()
+
+    # Assert
+    assert isinstance(result, list)
