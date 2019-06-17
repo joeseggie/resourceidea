@@ -31,3 +31,26 @@ def update_client(**kwargs) -> Client:
         name=kwargs['name'],
         address=kwargs.get('address', None),
         client_industry_id=kwargs.get('client_industry_id', None))
+
+
+def get_client(client_id: str) -> Client:
+    """
+    Get client by ID.
+
+    Args:
+        client_id (str): Client ID.
+
+    Returns:
+        Client details.
+    """
+    return ClientRepository.get_one_by_id(model_id=client_id)
+
+
+def list_clients() -> list:
+    """
+    List clients.
+
+    Returns:
+        List of clients.
+    """
+    return ClientRepository.get_all()
