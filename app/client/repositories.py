@@ -23,3 +23,19 @@ class ClientRepository(BaseRepository):
         """
         new_client.name_slug = name_slug(new_client.name)
         return cls.create(new_client)
+
+    @classmethod
+    def update(cls, client_id: str, **kwargs) -> Client:
+        """
+        Update client information.
+
+        Returns:
+            Updated client information.
+        """
+        update_fields = ('name', 'name_slug', 'address', 'client_industry_id')
+        kwargs['name_slug'] = name_slug(kwargs['name'])
+
+        return cls.update_by_id(
+            model_id=client_id,
+            fields_for_update=update_fields,
+            **kwargs)
