@@ -44,3 +44,13 @@ def get_client(client_id: str) -> Client:
         Client details.
     """
     return ClientRepository.get_one_by_id(model_id=client_id)
+
+
+def list_clients() -> list:
+    """
+    List clients.
+
+    Returns:
+        List of clients.
+    """
+    return ClientRepository.get_all()

@@ -4,6 +4,7 @@ from uuid import uuid4
 from app.client.models import Client
 from app.client.utils import create_client
 from app.client.utils import get_client
+from app.client.utils import list_clients
 from app.client.utils import update_client
 from app.client_industry.utils import create_client_industry
 from app.organization.utils import create_organization
@@ -92,3 +93,13 @@ def test_get_client_returns_none(session):
 
     # Assert
     assert result is None
+
+
+def test_list_clients(session):
+    """Test list_clients."""
+
+    # Act
+    result = list_clients()
+
+    # Assert
+    assert isinstance(result, list)
