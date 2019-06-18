@@ -2,6 +2,8 @@
 import re
 from typing import Tuple
 
+from sqlalchemy.dialects.postgresql import UUID
+
 from app.client_industry.models import ClientIndustry
 from app.common.base_repository import BaseRepository
 
@@ -43,14 +45,14 @@ class ClientIndustryRepository(BaseRepository):
 
     @classmethod
     def update(cls,
-               client_industry_id: str,
+               client_industry_id: UUID,
                update_fields: Tuple,
                **updates) -> model_class:
         """
         Update client industry.
 
         Args:
-            client_industry_id (str): Client industry ID.
+            client_industry_id (UUID): Client industry ID.
 
             update_fields (List, Tuple): Fields to be updated.
 

@@ -4,9 +4,9 @@ Employee repository.
 from typing import Union
 from typing import List
 from typing import Tuple
-from uuid import UUID
 
 from sqlalchemy import func
+from sqlalchemy.dialects.postgresql import UUID
 
 from app.common.base_repository import BaseRepository
 from app.employee.models import Employee
@@ -27,9 +27,9 @@ class EmployeeRepository(BaseRepository):
         Update employee record.
 
         Args:
-            employee_id {UUID}: Employee Id
+            employee_id (UUID): Employee Id
 
-            update_fields {List | Tuple}: Fields to update
+            update_fields (List | Tuple): Fields to update
 
         Returns:
             Employee record.
@@ -42,7 +42,7 @@ class EmployeeRepository(BaseRepository):
         Get employee by file number.
 
         Args:
-            file_number {str}: Employee file number.
+            file_number (str): Employee file number.
 
         Returns:
             Employee: Employee with file number.

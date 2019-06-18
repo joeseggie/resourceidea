@@ -25,7 +25,7 @@ class BaseRepository(ABC):
 
     @classmethod
     def update_by_id(cls,
-                     model_id: str,
+                     model_id: UUID,
                      fields_for_update: Tuple,
                      **kwargs) -> model_class:
         """
@@ -58,7 +58,7 @@ class BaseRepository(ABC):
             return cls.get_one_by_id(model_id)
 
     @classmethod
-    def get_one_by_id(cls, model_id: str) -> model_class:
+    def get_one_by_id(cls, model_id: UUID) -> model_class:
         """
         Get model by ID.
 
@@ -109,7 +109,7 @@ class BaseRepository(ABC):
         return rows_deleted
 
     @classmethod
-    def _model_exists(cls, model_id: str) -> bool:
+    def _model_exists(cls, model_id: UUID) -> bool:
         """
         Checks if the model exists.
 
