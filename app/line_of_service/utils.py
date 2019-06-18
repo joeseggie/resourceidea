@@ -28,3 +28,16 @@ def update_line_of_service(
         model_id=line_of_service_id,
         fields_for_update=update_fields,
         **kwargs)
+
+
+def get_line_of_service(line_of_service_id: UUID) -> LineOfService:
+    """
+    Get line of service by ID.
+
+    Args:
+        line_of_service_id (UUID): Line of service ID.
+
+    Returns:
+        Line of service.
+    """
+    return LineOfServiceRepository.get_one_by_id(model_id=line_of_service_id)
