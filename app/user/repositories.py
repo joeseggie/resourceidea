@@ -49,7 +49,7 @@ class UserRepository(BaseRepository):
         Update user account.
 
         Args:
-            model_id {UUID}: User account id.
+            model_id (UUID): User account id.
 
         Returns:
             UserAccount: User account.
@@ -63,7 +63,7 @@ class UserRepository(BaseRepository):
         Confirm phone number of a user account.
 
         Args:
-            model_id {UUID}: id of the user account whose phone number
+            model_id (UUID): id of the user account whose phone number
             is to be confirmed.
 
         Returns:
@@ -78,7 +78,7 @@ class UserRepository(BaseRepository):
         Confirm email of a user account.
 
         Args:
-            model_id {UUID}: Id of user account whose email is to be
+            model_id (UUID): Id of user account whose email is to be
             confirmed.
 
         Returns:
