@@ -2,7 +2,7 @@ from abc import ABC
 from typing import Tuple
 from typing import List
 
-from sqlalchemy.dialects.postgresql import UUID
+from uuid import UUID
 
 from sqlalchemy.orm import Query
 from sqlalchemy.exc import IntegrityError
