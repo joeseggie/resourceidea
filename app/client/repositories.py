@@ -1,4 +1,5 @@
 """app.client.repositories module"""
+from sqlalchemy.dialects.postgresql import UUID
 from app.common.base_repository import BaseRepository
 from app.common.utils import name_slug
 from app.client.models import Client
@@ -25,9 +26,12 @@ class ClientRepository(BaseRepository):
         return cls.create(new_client)
 
     @classmethod
-    def update(cls, client_id: str, **kwargs) -> Client:
+    def update(cls, client_id: UUID, **kwargs) -> Client:
         """
         Update client information.
+
+        Args:
+            client_id (UUID): Client ID.
 
         Returns:
             Updated client information.

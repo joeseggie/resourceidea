@@ -22,10 +22,10 @@ class RoleRepository(BaseRepository):
         """Get the stub of the organization's name.
 
         Arguments:
-            name {str} -- Organization name.
+            name (str): Organization name.
 
         Returns:
-            str -- Organization name stub.
+            str: Organization name stub.
         """
         return '-'.join(re.split(r'\W', name.lower()))
 
@@ -38,11 +38,9 @@ class RoleRepository(BaseRepository):
         Update role model.
 
         Args:
-            model_id {UUID}: Id of the role to update.
+            model_id (UUID): Id of the role to update.
 
-            update_fields {List | Tuple}: A tuple of list of fields to update
-
-            **kwargs
+            update_fields (List | Tuple): A tuple of list of fields to update
         """
         if 'name' in update_fields and 'name' in kwargs:
             normalized_name = cls._normalize_role_name(kwargs['name'])
@@ -55,9 +53,6 @@ class RoleRepository(BaseRepository):
     def get_all(cls, **kwargs) -> List[model_class]:
         """
         Get all the roles.
-
-        Args:
-            **kwargs
 
         Returns:
             List of roles.
@@ -80,7 +75,7 @@ class RoleRepository(BaseRepository):
         Get role by the normalized name.
 
         Args:
-            normalized_name{str}: Name of the role.
+            name (str): Name of the role.
         """
         normalized_name = cls._normalize_role_name(name)
         return cls.model_class.query\

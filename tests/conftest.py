@@ -2,6 +2,8 @@
 Tests suite configuration.
 """
 from faker import Faker
+from faker.providers import color
+from faker.providers import date_time
 from faker.providers import lorem
 from faker.providers import misc
 from faker.providers import person
@@ -142,3 +144,19 @@ def fake_lorem():
     fake_lorem = Faker()
     fake_lorem.add_provider(lorem)
     return fake_lorem
+
+
+@pytest.fixture
+def fake_datetime():
+    """Create fake datetime"""
+    fake_datetime = Faker()
+    fake_datetime.add_provider(date_time)
+    return fake_datetime
+
+
+@pytest.fixture
+def fake_color():
+    """Create fake color"""
+    fake_color = Faker()
+    fake_color.add_provider(color)
+    return fake_color
