@@ -2,6 +2,7 @@
 from app.line_of_service.models import LineOfService
 from app.line_of_service.utils import create_line_of_service
 from app.line_of_service.utils import get_line_of_service
+from app.line_of_service.utils import list_lines_of_service
 from app.line_of_service.utils import update_line_of_service
 
 
@@ -51,4 +52,15 @@ def test_get_line_of_service(session, fake_lorem):
     if result is None:
         raise AssertionError()
     if result != fake_los:
+        raise AssertionError()
+
+
+def test_list_lines_of_service(session):
+    """Test list_lines_of_service function."""
+
+    # Act
+    result = list_lines_of_service()
+
+    # Assert
+    if not isinstance(result, list):
         raise AssertionError()
