@@ -39,3 +39,16 @@ def update_job(job_id: UUID, **kwargs) -> Job:
         model_id=job_for_update.id,
         fields_for_update=update_fields,
         **kwargs)
+
+
+def get_job(job_id: UUID) -> Job:
+    """
+    Get job by ID.
+
+    Args:
+        job_id (UUID): ID of the job to be returned.
+
+    Returns:
+        Job
+    """
+    return JobRepository.get_one_by_id(model_id=job_id)
