@@ -93,3 +93,14 @@ def test_get_engagement(session):
         raise AssertionError()
     if result.id != fake_engagement_id:
         raise AssertionError()
+
+
+def test_list_engagements(session):
+    """Test list_engagement function."""
+
+    # Act
+    result = list_engagements()
+
+    # Assert
+    if not isinstance(result, list):
+        raise AssertionError()
