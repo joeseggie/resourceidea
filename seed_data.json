@@ -1,0 +1,32 @@
+{
+  "client": {
+    "name": "Existing client",
+    "name_slug": "existing-client",
+    "address":"Address"
+  },
+  "organization": {
+    "name": "Organization 1",
+    "name_slug": "organization-1",
+    "address": "Organization 1 address"
+  },
+  "user_account": {
+    "username":"test_user",
+    "password":"password",
+    "email":"mail@example.com",
+    "phone_number":"000-0000-111"
+  },
+  "client_industry": {
+    "name":"Existing name",
+    "name_slug":"existing-name"
+  },
+  "engagement": {
+    "title": "Existing engagement",
+    "description": "Existing engagement description",
+    "start_date": "2012-04-23T18:25:43.511Z",
+    "end_date": "2012-04-29T18:25:43.511Z",
+    "color": "#FFF000"
+  },
+  "line_of_service": {
+    "name": "Existing name"
+  }
+}
