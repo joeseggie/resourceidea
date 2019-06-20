@@ -1,6 +1,8 @@
 """app.common.enums module"""
 import enum
 
+from app.common import constants
+
 
 class OrganizationStatus(enum.Enum):
     """Organization status enumeration."""
@@ -11,8 +13,17 @@ class OrganizationStatus(enum.Enum):
 
 class EngagementStatus(enum.Enum):
     """Engagement status enumeration."""
-    NOT_STARTED = 'not started'
-    RUNNING = 'running'
-    IN_REVIEW = 'in review'
-    REVIEWED = 'reviewed'
-    CLOSED = 'closed'
+    NOT_STARTED = constants.NOT_STARTED
+    RUNNING = constants.RUNNING
+    IN_REVIEW = constants.IN_REVIEW
+    REVIEWED = constants.REVIEWED
+    CLOSED = constants.CLOSED
+
+
+class JobStatus(enum.Enum):
+    """Job status enumeration"""
+    NOT_STARTED = constants.NOT_STARTED
+    IN_PROGRESS = constants.IN_PROGRESS
+    IN_REVIEW = constants.IN_REVIEW
+    REVIEWED = constants.REVIEWED
+    CLOSED = constants.CLOSED
