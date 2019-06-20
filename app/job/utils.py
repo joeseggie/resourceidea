@@ -1,4 +1,5 @@
 """app.job.utils module"""
+from typing import List
 from uuid import UUID
 
 from app.job.models import Job
@@ -52,3 +53,13 @@ def get_job(job_id: UUID) -> Job:
         Job
     """
     return JobRepository.get_one_by_id(model_id=job_id)
+
+
+def list_jobs() -> List[Job]:
+    """
+    List jobs.
+
+    Returns:
+        List of jobs.
+    """
+    return JobRepository.get_all()
