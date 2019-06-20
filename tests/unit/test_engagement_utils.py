@@ -3,6 +3,8 @@ from datetime import date
 from app.client.utils import list_clients
 from app.engagement.models import Engagement
 from app.engagement.utils import create_engagement
+from app.engagement.utils import get_engagement
+from app.engagement.utils import list_engagements
 from app.engagement.utils import update_engagement
 from app.client_industry.utils import list_client_industries
 
@@ -74,4 +76,20 @@ def test_update_engagement(session, fake_lorem, fake_color):
     if result.description == origin_description:
         raise AssertionError()
     if result.color == origin_color:
+        raise AssertionError()
+
+
+def test_get_engagement(session):
+    """Test get_engagement function."""
+
+    # Arrange
+    fake_engagement_id = next(iter(list_engagements() or []), None).id
+
+    # Act
+    result = get_engagement(fake_engagement_id)
+
+    # Assert
+    if not isinstance(result, Engagement):
+        raise AssertionError()
+    if result.id != fake_engagement_id:
         raise AssertionError()

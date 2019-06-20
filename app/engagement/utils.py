@@ -59,3 +59,16 @@ def list_engagements() -> List[Engagement]:
         List of engagements.
     """
     return EngagementRepository.get_all()
+
+
+def get_engagement(engagement_id: UUID) -> Engagement:
+    """
+    Get engagement by ID.
+
+    Args:
+        engagement_id (UUID): ID of engagement to be returned.
+
+    Returns:
+        Engagement whose ID has been supplied.
+    """
+    return EngagementRepository.get_one_by_id(model_id=engagement_id)
