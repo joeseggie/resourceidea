@@ -4,8 +4,9 @@ from datetime import date
 from app.engagement.utils import list_engagements
 from app.job.models import Job
 from app.job.utils import create_job
-from app.job.utils import update_job
 from app.job.utils import get_job
+from app.job.utils import list_jobs
+from app.job.utils import update_job
 
 
 def test_create_job(session, fake_lorem):
@@ -78,4 +79,15 @@ def test_get_job(session, fake_lorem):
     if result is None:
         raise AssertionError()
     if not isinstance(result, Job):
+        raise AssertionError()
+
+
+def test_list_jobs(session):
+    """Test list_jobs function"""
+
+    # Act
+    result = list_jobs()
+
+    # Assert
+    if not isinstance(result, list):
         raise AssertionError()
