@@ -18,9 +18,11 @@ class UserRole(BaseModel):
 
     user_account_id = db.Column(UUID, db.ForeignKey('user_account.id'))
     role_id = db.Column(UUID, db.ForeignKey('role.id'))
+    organization_id = db.Column(UUID, db.ForeignKey('organization.id'))
 
     user = relationship('UserAccount')
     role = relationship('Role')
+    organization = relationship('Organization')
 
     __table_args__ = (
         UniqueConstraint(
