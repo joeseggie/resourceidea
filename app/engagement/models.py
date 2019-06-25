@@ -25,9 +25,8 @@ class Engagement(BaseModel):
     status = db.Column(
         db.Enum(EngagementStatus),
         default=EngagementStatus.NOT_STARTED)
-
-    # manager_id = db.Column(UUID)
-    # partner_id = db.Column(UUID)
+    manager_id = db.Column(UUID, nullable=True)
+    partner_id = db.Column(UUID, nullable=True)
 
     client_id = db.Column(UUID, db.ForeignKey('client.id'))
     client = relationship('Client')

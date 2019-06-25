@@ -22,12 +22,8 @@ class Employee(BaseModel):
     start_date = db.Column(db.DateTime, server_default=utcnow())
     termination_date = db.Column(db.DateTime, nullable=True)
 
-    # resource = db.relationship(
-    #     'Resource',
-    #     uselist=False,
-    #     backref='employee'
-    # )
     user_account_id = db.Column(UUID, db.ForeignKey('user_account.id'))
+    user_account_account = relationship('UserAccount')
 
     organization_id = db.Column(UUID, db.ForeignKey('organization.id'))
     organization = relationship('Organization')
