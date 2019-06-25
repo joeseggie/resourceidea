@@ -24,8 +24,7 @@ class Job(BaseModel):
     organization_id = db.Column(UUID, db.ForeignKey('organization.id'))
     organization = relationship('Organization')
 
-    # manager_id = db.Column(UUID, db.ForeignKey('resource.id'))
-    # manager = relationship('Resource')
+    manager_id = db.Column(UUID, nullable=True)
 
     def __repr__(self):
         return '<Job %s>' % self.title
