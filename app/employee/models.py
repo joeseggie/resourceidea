@@ -1,7 +1,6 @@
 """Employee model.
 """
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import backref
 from sqlalchemy.orm import relationship
 from app.common.models import BaseModel
 from app.common.sqlalchemy_extensions import utcnow

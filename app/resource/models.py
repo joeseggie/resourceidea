@@ -21,4 +21,5 @@ class Resource(BaseModel):
     organization = relationship('Organization')
 
     employee_id = db.Column(UUID, db.ForeignKey('employee.id'))
-    employee = relationship('Employee', backref=backref('resource', uselist=False))
+    employee = relationship(
+        'Employee', backref=backref('resource', uselist=False))

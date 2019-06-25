@@ -11,7 +11,8 @@ def test_create_resource(session, fake_color):
     # Arrange
     org_list_params = {'sort_key': 'name', 'sort_order': 'asc'}
     fake_employee = next(iter(EmployeeRepository.get_all() or []), None)
-    fake_organization = next(iter(get_organizations(**org_list_params) or []), None)
+    fake_organization = next(
+        iter(get_organizations(**org_list_params) or []), None)
     fake_resource = {
         'employee_id': fake_employee.id,
         'color': fake_color.hex_color(),
