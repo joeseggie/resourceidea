@@ -28,5 +28,12 @@
   },
   "line_of_service": {
     "name": "Existing name"
+  },
+  "employee": {
+    "file_number": "123456",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "other_names": "Other names",
+    "start_date": "2019-04-23T18:25:43.511Z"
   }
 }
