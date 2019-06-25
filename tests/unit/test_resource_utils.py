@@ -4,6 +4,7 @@ from app.organization.utils import get_organizations
 from app.resource.models import Resource
 from app.resource.utils import create_resource
 from app.resource.utils import get_resource
+from app.resource.utils import list_resources
 from app.resource.utils import update_resource
 
 
@@ -78,4 +79,15 @@ def test_get_resource(session, fake_color):
     if not isinstance(result, Resource):
         raise AssertionError()
     if result.id != fake_resource.id:
+        raise AssertionError()
+
+
+def test_list_resources(session):
+    """Test list_resources function."""
+
+    # Act
+    result = list_resources()
+
+    # Assert
+    if not isinstance(result, list):
         raise AssertionError()

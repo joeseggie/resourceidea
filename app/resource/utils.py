@@ -1,4 +1,5 @@
 """app.resource.utils module"""
+from typing import List
 from uuid import UUID
 
 from app.resource.models import Resource
@@ -43,3 +44,13 @@ def get_resource(resource_id: UUID) -> Resource:
         Resource whose ID has been supplied.
     """
     return ResourceRepository.get_one_by_id(model_id=resource_id)
+
+
+def list_resources() -> List[Resource]:
+    """
+    List resources.
+
+    Returns:
+        List of resources.
+    """
+    return ResourceRepository.get_all()
