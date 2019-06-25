@@ -15,6 +15,7 @@ import pytest
 
 from app import create_app
 from app.client.models import Client
+from app.employee.models import Employee
 from app.engagement.models import Engagement
 from app.client_industry.models import ClientIndustry
 from app.line_of_service.models import LineOfService
@@ -96,6 +97,11 @@ def session(db, request, seed_data):
     engagement_seed['organization_id'] = organization_1.id
     engagement_1 = Engagement(**engagement_seed)
 
+    employee_seed = seed_data['employee']
+    employee_seed['user_account_id'] = user_1.id
+    employee_seed['organization_id'] = organization_1.id
+    employee_1 = Employee(**employee_seed)
+
     administrator_role = RoleRepository.get_by_name('administrator')
     if not administrator_role:
         role_1 = Role(name='Administrator', normalized_name='administrator')
@@ -107,6 +113,7 @@ def session(db, request, seed_data):
     db.session.add(client_1)
     db.session.add(line_of_service_1)
     db.session.add(engagement_1)
+    db.session.add(employee_1)
     db.session.commit()
 
     def teardown():
