@@ -30,3 +30,16 @@ def update_resource(resource_id: UUID, **kwargs) -> Resource:
         model_id=resource_id,
         fields_for_update=update_fields,
         **kwargs)
+
+
+def get_resource(resource_id: UUID) -> Resource:
+    """
+    Get resource given the ID.
+
+    Args:
+        resource_id (UUID): Resource ID.
+
+    Returns:
+        Resource whose ID has been supplied.
+    """
+    return ResourceRepository.get_one_by_id(model_id=resource_id)
