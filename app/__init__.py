@@ -10,6 +10,7 @@ from app.auth.views import auth_views_bp
 from app.client.endpoints import client_bp
 from app.client_industry.endpoints import client_industry_bp
 from app.engagement.endpoints import engagement_bp
+from app.job.endpoints import job_bp
 from app.line_of_service.endpoints import line_of_service_bp
 from app.organization.endpoints import organization_bp
 from app.resource.endpoints import resource_bp
@@ -56,5 +57,6 @@ def create_app(config_name='default'):
     app.register_blueprint(line_of_service_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(engagement_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(resource_bp, url_prefix=API_URL_PREFIX)
+    app.register_blueprint(job_bp, url_prefix=API_URL_PREFIX)
 
     return app
