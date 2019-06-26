@@ -4,6 +4,7 @@ from app.task.models import Task
 from app.task.utils import create_task
 from app.task.utils import update_task
 from app.task.utils import get_task
+from app.task.utils import list_tasks
 
 
 def test_create_task(session, fake_lorem):
@@ -64,4 +65,15 @@ def test_get_task(session, fake_lorem):
 
     # Assert
     if not isinstance(result, Task):
+        raise AssertionError()
+
+
+def test_list_tasks(session):
+    """Test list_tasks function."""
+
+    # Act
+    result = list_tasks()
+
+    # Assert
+    if not isinstance(result, list):
         raise AssertionError()

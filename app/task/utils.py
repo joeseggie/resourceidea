@@ -1,4 +1,5 @@
 """app.task.utils module"""
+from typing import List
 from uuid import UUID
 
 from app.task.models import Task
@@ -47,3 +48,13 @@ def get_task(task_id: UUID) -> Task:
         Task
     """
     return TaskRepository.get_one_by_id(model_id=task_id)
+
+
+def list_tasks() -> List[Task]:
+    """
+    List tasks.
+
+    Returns:
+        List of tasks.
+    """
+    return TaskRepository.get_all()
