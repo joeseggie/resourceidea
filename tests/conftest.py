@@ -18,6 +18,7 @@ from app.client.models import Client
 from app.employee.models import Employee
 from app.engagement.models import Engagement
 from app.client_industry.models import ClientIndustry
+from app.job.models import Job
 from app.line_of_service.models import LineOfService
 from app.organization.models import Organization
 from app.role.models.role import Role
@@ -102,6 +103,11 @@ def session(db, request, seed_data):
     employee_seed['organization_id'] = organization_1.id
     employee_1 = Employee(**employee_seed)
 
+    job_seed = seed_data['job']
+    job_seed['engagement_id'] = engagement_1.id
+    job_seed['organization_id'] = organization_1.id
+    job_1 = Job(**job_seed)
+
     administrator_role = RoleRepository.get_by_name('administrator')
     if not administrator_role:
         role_1 = Role(name='Administrator', normalized_name='administrator')
@@ -114,6 +120,7 @@ def session(db, request, seed_data):
     db.session.add(line_of_service_1)
     db.session.add(engagement_1)
     db.session.add(employee_1)
+    db.session.add(job_1)
     db.session.commit()
 
     def teardown():

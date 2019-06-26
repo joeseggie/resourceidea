@@ -35,5 +35,11 @@
     "last_name": "Last name",
     "other_names": "Other names",
     "start_date": "2019-04-23T18:25:43.511Z"
+  },
+  "job": {
+    "title": "Existing job",
+    "description": "Existing job description",
+    "start_date": "2019-05-23T18:25:43.511Z",
+    "completion_date": "2019-06-23T18:25:43.511Z"
   }
 }

@@ -27,3 +27,12 @@ class JobStatus(enum.Enum):
     IN_REVIEW = constants.IN_REVIEW
     REVIEWED = constants.REVIEWED
     CLOSED = constants.CLOSED
+
+
+class TaskStatus(enum.Enum):
+    """Task status enumeration"""
+    NOT_STARTED = constants.NOT_STARTED
+    IN_PROGRESS = constants.IN_PROGRESS
+    IN_REVIEW = constants.IN_REVIEW
+    REVIEWED = constants.REVIEWED
+    CLOSED = constants.CLOSED
