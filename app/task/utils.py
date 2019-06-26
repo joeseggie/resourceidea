@@ -34,3 +34,16 @@ def update_task(task_id: UUID, **kwargs) -> Task:
         model_id=task_id,
         fields_for_update=update_fields,
         **kwargs)
+
+
+def get_task(task_id: UUID) -> Task:
+    """
+    Get task.
+
+    Args:
+        task_id (UUID): Task ID.
+
+    Returns:
+        Task
+    """
+    return TaskRepository.get_one_by_id(model_id=task_id)
