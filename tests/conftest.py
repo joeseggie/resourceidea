@@ -23,6 +23,7 @@ from app.line_of_service.models import LineOfService
 from app.organization.models import Organization
 from app.role.models.role import Role
 from app.role.repositories.role_repository import RoleRepository
+from app.task.models import Task
 from app.user.models import UserAccount
 from database import db as _db
 
@@ -108,6 +109,10 @@ def session(db, request, seed_data):
     job_seed['organization_id'] = organization_1.id
     job_1 = Job(**job_seed)
 
+    task_seed = seed_data['task']
+    task_seed['job_id'] = job_1.id
+    task_1 = Task(**task_seed)
+
     administrator_role = RoleRepository.get_by_name('administrator')
     if not administrator_role:
         role_1 = Role(name='Administrator', normalized_name='administrator')
@@ -121,6 +126,7 @@ def session(db, request, seed_data):
     db.session.add(engagement_1)
     db.session.add(employee_1)
     db.session.add(job_1)
+    db.session.add(task_1)
     db.session.commit()
 
     def teardown():
