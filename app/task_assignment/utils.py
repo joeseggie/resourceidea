@@ -11,8 +11,8 @@ def create_task_assignment(**kwargs) -> TaskAssignment:
         Task assignment that has been created.
     """
     new_task_assignment = TaskAssignment(
-        start_date_time = kwargs['start_date_time'],
-        end_date_time = kwargs['end_date_time'],
-        task_id = kwargs['task_id'],
-        resource_id = kwargs.get('resource_id', None))
+        start_date_time=kwargs['start_date_time'],
+        end_date_time=kwargs['end_date_time'],
+        task_id=kwargs['task_id'],
+        resource_id=kwargs.get('resource_id', None))
     return TaskAssignmentRepository.create(new_task_assignment)
