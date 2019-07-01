@@ -15,6 +15,7 @@ from app.line_of_service.endpoints import line_of_service_bp
 from app.organization.endpoints import organization_bp
 from app.resource.endpoints import resource_bp
 from app.role.endpoints import role_bp
+from app.task.endpoints import task_bp
 from app.user.endpoints import user_bp
 
 
@@ -58,5 +59,6 @@ def create_app(config_name='default'):
     app.register_blueprint(engagement_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(resource_bp, url_prefix=API_URL_PREFIX)
     app.register_blueprint(job_bp, url_prefix=API_URL_PREFIX)
+    app.register_blueprint(task_bp, url_prefix=API_URL_PREFIX)
 
     return app
