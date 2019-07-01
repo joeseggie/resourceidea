@@ -29,6 +29,7 @@ def test_create_task_assignment(session):
     if not isinstance(result, TaskAssignment):
         raise AssertionError()
 
+
 def test_create_task_assignment_none_resource(session):
     """Test create_task_assignment with no resource."""
 
@@ -49,6 +50,7 @@ def test_create_task_assignment_none_resource(session):
     # Assert
     if not isinstance(result, TaskAssignment):
         raise AssertionError()
+
 
 def test_create_task_assignment_no_resource(session):
     """Test create_task_assignment with no resource."""
