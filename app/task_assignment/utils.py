@@ -1,4 +1,5 @@
 """app.task_assignment.utils module"""
+from typing import List
 from uuid import UUID
 
 from app.task_assignment.models import TaskAssignment
@@ -52,3 +53,13 @@ def get_task_assignment(assignment_id: UUID) -> TaskAssignment:
         Task assignment.
     """
     return TaskAssignmentRepository.get_one_by_id(assignment_id)
+
+
+def list_task_assignments() -> List[TaskAssignment]:
+    """
+    List task assignments
+
+    Returns:
+        List of task assignments.
+    """
+    return TaskAssignmentRepository.get_all()
