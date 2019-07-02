@@ -6,6 +6,7 @@ from app.resource.utils import list_resources
 from app.task.utils import list_tasks
 from app.task_assignment.models import TaskAssignment
 from app.task_assignment.utils import create_task_assignment
+from app.task_assignment.utils import update_task_assignment
 
 
 def test_create_task_assignment(session):
@@ -70,4 +71,37 @@ def test_create_task_assignment_no_resource(session):
 
     # Assert
     if not isinstance(result, TaskAssignment):
+        raise AssertionError()
+
+
+def test_update_task_assignment(session):
+    """Test update_task_assignment function"""
+
+    # Arrange
+    fake_task_id = next(iter(list_tasks() or []), None).id
+    utc_date = datetime.utcnow()
+    fake_start_date_time = utc_date
+    fake_end_datetime = utc_date + timedelta(days=5)
+    utc_date_update = datetime.utcnow()
+    update_start_date_time = utc_date_update
+    update_end_datetime = utc_date_update + timedelta(days=5)
+    new_task_assignment = dict(
+        task_id=fake_task_id,
+        start_date_time=fake_start_date_time,
+        end_date_time=fake_end_datetime)
+    fake_assignment = create_task_assignment(**new_task_assignment)
+    updates = {
+        'start_date_time': update_start_date_time,
+        'end_date_time': update_end_datetime
+    }
+
+    # Act
+    result = update_task_assignment(fake_assignment.id, **updates)
+
+    # Assert
+    if not isinstance(result, TaskAssignment):
+        raise AssertionError()
+    if result.start_date_time == fake_start_date_time:
+        raise AssertionError()
+    if result.end_date_time == fake_end_datetime:
         raise AssertionError()
