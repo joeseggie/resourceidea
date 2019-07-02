@@ -39,3 +39,16 @@ def update_task_assignment(assignment_id: UUID, **kwargs) -> TaskAssignment:
         model_id=assignment_id,
         fields_for_update=update_fields,
         **kwargs)
+
+
+def get_task_assignment(assignment_id: UUID) -> TaskAssignment:
+    """
+    Get task assignment by ID.
+
+    Args:
+        assignment_id (UUID): ID of the task assignment.
+
+    Returns:
+        Task assignment.
+    """
+    return TaskAssignmentRepository.get_one_by_id(assignment_id)
