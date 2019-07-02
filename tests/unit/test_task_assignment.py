@@ -9,6 +9,7 @@ from app.task.utils import list_tasks
 from app.task_assignment.models import TaskAssignment
 from app.task_assignment.utils import create_task_assignment
 from app.task_assignment.utils import get_task_assignment
+from app.task_assignment.utils import list_task_assignments
 from app.task_assignment.utils import update_task_assignment
 
 
@@ -140,4 +141,15 @@ def test_get_task_assignment(session):
     if result.end_date_time != fake_end_datetime:
         raise AssertionError()
     if result.task_id != fake_task_id:
+        raise AssertionError()
+
+
+def test_list_task_assignments(session):
+    """Test list_task_assignments function"""
+
+    # Act
+    result = list_task_assignments()
+
+    # Assert
+    if not isinstance(result, list):
         raise AssertionError()
